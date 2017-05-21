@@ -24,11 +24,6 @@ describe('<Select />', () => {
     expect(wrapper).to.have.tagName('div');
   });
 
-  it('should create a multifield select if requested', () => {
-    const wrapper = render(<Select options={options} isMultiline={true} />);
-    expect(wrapper.find('select')[0].attribs.multiple).to.eql('');
-  });
-
   it('should create a disabled select if requested', () => {
     const wrapper = render(<Select options={options} isDisabled={true} />);
     expect(wrapper.find('select')[0].attribs.disabled).to.eql('');
@@ -42,11 +37,6 @@ describe('<Select />', () => {
   it('should mark the requested value as selected', () => {
     const wrapper = shallow(<Select options={options} selected="zapdos" />);
     expect(wrapper.state('selected')).to.eql('Zapdos');
-  });
-
-  it('should use the state to keep track of the selected value', () => {
-    const wrapper = render(<Select options={options} selected="zapdos" />);
-    expect(wrapper.find('option')[1].attribs.selected).to.eql('');
   });
 
   it('should set a requested option as disabled', () => {

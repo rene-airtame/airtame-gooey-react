@@ -43,15 +43,10 @@ export default class Select extends Component {
       })
     ).isRequired,
     /**
-     * ID for the default selected option. Multiline will fallback to no default selection
+     * ID for the default selected option.
      * @type string
      */
     selected: PropTypes.string,
-    /**
-     * Flag indicating if the select is a multiselect box
-     * @type {boolean}
-     */
-    isMultiline: PropTypes.bool,
     /**
      * Flag indicating if the select is in a disabled state
      * @type {boolean}
@@ -83,7 +78,6 @@ export default class Select extends Component {
 
   static defaultProps = {
     selected: null,
-    isMultiline: false,
     isDisabled: false,
     isError: false,
     id: null,
@@ -91,13 +85,14 @@ export default class Select extends Component {
   };
 
   /**
-   * Lifecycle Method
-   * Sets the default selected state
+   * Class constructor
+   * @param {Object} [props] - The component props
    */
-  componentWillMount() {
-    this.setState({
+  constructor(props) {
+    super(props);
+    this.state = {
       selected: this.getDefaultSelected(),
-    });
+    };
   }
 
   /**
@@ -105,15 +100,16 @@ export default class Select extends Component {
    * @return {String|null} The id of the selected element or null
    */
   getDefaultSelected = () => {
-    const { isMultiline, selected, options } = this.props;
+    const { selected, options } = this.props;
     let selectedIndex = 0;
+
     options.map((o, i) => {
       if (o.id === selected) {
         selectedIndex = i;
       }
     });
 
-    return isMultiline ? null : options[selectedIndex].value;
+    return options[selectedIndex].value;
   }
 
   /**
@@ -140,7 +136,6 @@ export default class Select extends Component {
       id,
       isDisabled,
       isError,
-      isMultiline,
       options,
     } = this.props;
 
@@ -149,7 +144,6 @@ export default class Select extends Component {
       {
         'gooey-select--disabled': isDisabled,
         'gooey-select--error': isError,
-        'gooey-select--multiline': isMultiline,
       },
       className
     );
@@ -160,14 +154,13 @@ export default class Select extends Component {
           className="gooey-select__select"
           disabled={isDisabled}
           onChange={this.updateSelected}
+          value={this.state.selected}
           id={id}
-          multiple={isMultiline || null}
         >
           {
             options.map(option => (
               <option
                 key={option.id}
-                selected={option.value === this.state.selected ? true : null}
                 disabled={option.isDisabled || null}
                 value={option.value}
                 label={option.label || null}
