@@ -44,6 +44,11 @@ describe('<Select />', () => {
     expect(wrapper.state('selected')).to.eql('Zapdos');
   });
 
+  it('should use the state to keep track of the selected value', () => {
+    const wrapper = render(<Select options={options} selected="zapdos" />);
+    expect(wrapper.find('option')[1].attribs.selected).to.eql('');
+  });
+
   it('should set a requested option as disabled', () => {
     const wrapper = render(<Select options={options} />);
     expect(wrapper.find('option')[2].attribs.disabled).to.eql('');

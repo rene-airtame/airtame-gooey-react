@@ -142,7 +142,6 @@ export default class Select extends Component {
       isError,
       isMultiline,
       options,
-      selected,
     } = this.props;
 
     const componentClassNames = classNames(
@@ -168,7 +167,7 @@ export default class Select extends Component {
             options.map(option => (
               <option
                 key={option.id}
-                selected={option.value === selected ? true : null}
+                selected={option.value === this.state.selected ? true : null}
                 disabled={option.isDisabled || null}
                 value={option.value}
                 label={option.label || null}
