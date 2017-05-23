@@ -50,7 +50,7 @@ describe('<Select />', () => {
   });
 
   it('should update the state when the select value changes', () => {
-    const o = options;
+    const o = options.slice(0);
     delete o[2].isDisabled;
     const wrapper = mount(<Select options={o} />);
     wrapper.find('select').simulate('change', { target: { value: 'Moltres' } });
