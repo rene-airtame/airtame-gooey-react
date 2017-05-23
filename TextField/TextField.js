@@ -202,6 +202,8 @@ export default class TextField extends Component {
 
     const inputType = this.getType();
 
+    const toggleText = this.state.isPasswordShown ? 'Hide password' : 'Show password';
+
     return (
       <div className={textFieldClassNames}>
         <input
@@ -221,10 +223,9 @@ export default class TextField extends Component {
             <button
               className={showPasswordButtonClassnames}
               onClick={this.handlePasswordVisibility}
+              title={toggleText}
             >
-              {
-                this.state.isPasswordShown ? 'Hide password' : 'Show password'
-              }
+              {toggleText}
             </button>
           :
             null
