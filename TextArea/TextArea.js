@@ -31,24 +31,29 @@ export default class TextArea extends Component {
     maxContentLength: PropTypes.number,
     /**
      * Flag indicating if the field is in a disabled state
-     *@type {boolean}
+     * @type {boolean}
      */
     isDisabled: PropTypes.bool,
     /**
      * Flag indicating if the field is in an error state
-     *@type {boolean}
+     * @type {boolean}
      */
     isError: PropTypes.bool,
     /**
      * Flag indicating if the field is read-only
-     *@type {boolean}
+     * @type {boolean}
      */
     isReadOnly: PropTypes.bool,
     /**
      * The text to display when a validation error happens
-     *@type {string}
+     * @type {string}
      */
     errorMessage: PropTypes.string,
+    /**
+     * Optional onChange callback
+     * @type {Function}
+     */
+    onChange: PropTypes.func,
     /**
      * Class name for the component
      * @type {string | Array}
@@ -74,6 +79,7 @@ export default class TextArea extends Component {
     maxContentLength: 0,
     errorMessage: '',
     placeholder: '',
+    onChange: null,
   };
 
   /**
@@ -104,7 +110,15 @@ export default class TextArea extends Component {
       if (maxContentLength && this.state.textAreaValue.length > maxContentLength) {
         this.setState({
           isMaxLengthExceeded: true,
+        }, () => {
+          if (this.props.onChange) {
+            this.props.onChange(e);
+          }
         });
+      } else {
+        if (this.props.onChange) {
+          this.props.onChange(e);
+        }
       }
     });
   }
