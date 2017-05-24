@@ -86,4 +86,11 @@ describe('<TextField />', () => {
     expect(wrapper.find('.gooey-text-field__error-message')).to.have.length(1);
     expect(wrapper.find('.gooey-text-field--error')).to.have.length(1);
   });
+
+  it('should tirgger an onChange callback function', () => {
+    const onChangeCallback = spy();
+    const wrapper = shallow(<TextField onChange={onChangeCallback} />);
+    wrapper.find('input').simulate('change', {target: {value: 'a'}});
+    expect(onChangeCallback).to.have.property('callCount', 1);
+  });
 });

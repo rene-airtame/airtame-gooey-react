@@ -61,6 +61,11 @@ export default class TextField extends Component {
      */
     disablePasswordToggle: PropTypes.bool,
     /**
+     * Optional onChange callback
+     * @type {Function}
+     */
+    onChange: PropTypes.func,
+    /**
      * Class name for the component
      * @type {string | Array}
      */
@@ -87,6 +92,7 @@ export default class TextField extends Component {
     placeholder: '',
     type: 'text',
     disablePasswordToggle: false,
+    onChange: null,
   };
 
   /**
@@ -137,7 +143,15 @@ export default class TextField extends Component {
       if (maxContentLength && this.state.textFieldValue.length > maxContentLength) {
         this.setState({
           isMaxLengthExceeded: true,
+        }, () => {
+          if (this.props.onChange) {
+            this.props.onChange(e);
+          }
         });
+      } else {
+        if (this.props.onChange) {
+          this.props.onChange(e);
+        }
       }
     });
   }
