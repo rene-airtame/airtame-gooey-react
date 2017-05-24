@@ -15,17 +15,37 @@ describe('<RadioGroup />', () => {
     expect(wrapper).to.have.tagName('ul');
   });
 
+  it('should make the first radio checked by default', () => {
+    const radios = [{
+      id: 'foo',
+      label: 'Foo',
+      value: 'foo',
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
+    }];
+    const wrapper = render(
+      <RadioGroup name="test-radio" data={radios} />
+    );
+    expect(wrapper.find('#foo')[0].attribs.checked).to.eql('');
+  });
+
   it('should make the requested radio checked', () => {
     const radios = [{
       id: 'foo',
       label: 'Foo',
       value: 'foo',
-      isDisabled: false,
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
     }];
     const wrapper = render(
-      <RadioGroup name="test-radio" data={radios} active="foo" />
+      <RadioGroup name="test-radio" data={radios} active="bar" />
     );
-    expect(wrapper.find('#foo')[0].attribs.checked).to.eql('');
+    expect(wrapper.find('#foo')[0].attribs.checked).to.eql(undefined);
+    expect(wrapper.find('#bar')[0].attribs.checked).to.eql('');
   });
 
   it('should toggle two radios', () => {
@@ -33,12 +53,10 @@ describe('<RadioGroup />', () => {
       id: 'foo',
       label: 'Foo',
       value: 'foo',
-      isDisabled: false,
     }, {
       id: 'bar',
       label: 'Bar',
       value: 'bar',
-      isDisabled: false,
     }];
     const wrapper = shallow(
       <RadioGroup name="test-radio" data={radios} active="foo" />
@@ -49,17 +67,38 @@ describe('<RadioGroup />', () => {
     expect(wrapper.state('active')).to.eql('bar');
   });
 
-  it('should be disabled when requested', () => {
+  it('should disable individual radios', () => {
     const radios = [{
       id: 'foo',
       label: 'Foo',
       value: 'foo',
-      isDisabled: true,
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
+      isDisabled: true
     }];
     const wrapper = render(
       <RadioGroup name="test-radio" data={radios} active="foo" />
     );
-    expect(wrapper.find('#foo')[0].attribs.disabled).to.eql('');
+    expect(wrapper.find('#foo')[0].attribs.disabled).to.eql(undefined);
+    expect(wrapper.find('#bar')[0].attribs.disabled).to.eql('');
+  });
+
+  it('should disable all radios', () => {
+    const radios = [{
+      id: 'foo',
+      label: 'Foo',
+      value: 'foo',
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
+    }];
+    const wrapper = render(
+      <RadioGroup name="test-radio" data={radios} active="foo" isDisabled={true} />
+    );
+    expect(wrapper.find('input:disabled')).to.have.length(2);
   });
 
   it('should have a linked input and label', () => {
@@ -67,12 +106,10 @@ describe('<RadioGroup />', () => {
       id: 'foo',
       label: 'Foo',
       value: 'foo',
-      isDisabled: false,
     }, {
       id: 'bar',
       label: 'Bar',
       value: 'bar',
-      isDisabled: false,
     }];
     const wrapper = render(
       <RadioGroup name="test-radio" data={radios} active="foo" />
@@ -93,12 +130,10 @@ describe('<RadioGroup />', () => {
       id: 'foo',
       label: 'Foo',
       value: 'foo',
-      isDisabled: false,
     }, {
       id: 'bar',
       label: 'Bar',
       value: 'bar',
-      isDisabled: false,
     }];
     const wrapper = shallow(
       <RadioGroup name="test-radio" data={radios} active="foo" onChange={onChangeCallback} />
@@ -107,4 +142,5 @@ describe('<RadioGroup />', () => {
     wrapper.find('#bar').simulate('change', { target: { value: 'bar' } });
     expect(onChangeCallback).to.have.property('callCount', 1);
   });
+
 });

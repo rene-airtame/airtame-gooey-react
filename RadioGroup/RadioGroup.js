@@ -39,10 +39,17 @@ export default class RadioGroup extends Component {
     })).isRequired,
     /**
      * attibute indicating the checked radio button in the group.
-     * its value will be equal to the id of the desired radio box object in the data array
+     * its value will be equal to the id of the desired radio box object in the data array.
+     * Defaults to first element in the data array
      * @type {string}
      */
-    active: PropTypes.string.isRequired,
+    active: PropTypes.string,
+    /**
+     * Flag indicating if ALL elements in the radio group should be disabled. This overrides the
+     * data[*].isDisabled value
+     * @type {boolean}
+     */
+    isDisabled: PropTypes.bool,
     /**
      * Callback to be called when the state of any of the radio buttons in the group is changed
      * @type {Function}
@@ -62,26 +69,50 @@ export default class RadioGroup extends Component {
    * Default prop values
    */
   static defaultProps = {
+    isDisabled: false,
     onChange: null,
   };
 
   /**
-   * Component's initial state
+   * Class Constructor
+   * @param {Object} [props] - The component's props
+   *
    */
-  state = {
-    active: this.props.active,
-  };
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      active: this.getDefaultActive(),
+    };
+  }
+
+  /**
+   * Gets the id for the default active radio
+   * @return {String} The id of the active radio
+   */
+  getDefaultActive = () => {
+    const { data, active } = this.props;
+    let validActive = false;
+    data.map(d => {
+      if (d.id === active) {
+        validActive = true;
+      }
+    });
+
+    return validActive ? active : data[0].id;
+  }
 
   /**
    * Handles the checked state change for the radio
-   * @param {Object}    [event] - the DOM event
+   * @param {Event}    [evt] - the DOM event
+   * @param {String}   [id] - The id of the selected radio
    */
-  handleChange = event => {
+  handleChange = (evt, id) => {
     this.setState({
-      active: event.target.value,
+      active: id,
     }, () => {
       if (this.props.onChange) {
-        this.props.onChange(event);
+        this.props.onChange(evt, id);
       }
     });
   }
@@ -91,9 +122,12 @@ export default class RadioGroup extends Component {
    * @return {JSX}  The markup to be rendered
    */
   render() {
-    const { id, name, data, active } = this.props;
+    const { id, name, data, isDisabled } = this.props;
     const radioGroupClassNames = classNames(
       'gooey-radio-group',
+      {
+        'gooey-radio-group--disabled': isDisabled,
+      },
       this.props.className
     );
 
@@ -101,24 +135,32 @@ export default class RadioGroup extends Component {
       <ul className={radioGroupClassNames} id={id}>
         {
           data
-          ?
-            data.map((r, i) =>
-              <li key={r.id} className="gooey-radio-group__option">
-                <input
-                  className="gooey-radio-group__input"
-                  type="radio"
-                  name={name}
-                  value={r.value}
-                  id={r.id}
-                  checked={active === r.id}
-                  onChange={this.handleChange}
-                  disabled={r.isDisabled}
-                />
-                <label htmlFor={r.id} className="gooey-radio-group__label">
-                  {r.label}
-                </label>
-              </li>
-            )
+            ?
+            data.map((r, i) => {
+              const inputClassNames = classNames(
+                'gooey-radio-group__input',
+                {
+                  'gooey-radio-group__input--disabled': isDisabled || r.isDisabled,
+                }
+              );
+              return (
+                <li key={r.id} className="gooey-radio-group__option">
+                  <input
+                    className={inputClassNames}
+                    type="radio"
+                    name={name}
+                    value={r.value}
+                    id={r.id}
+                    checked={this.state.active === r.id}
+                    onChange={evt => this.handleChange(evt, r.id)}
+                    disabled={isDisabled || r.isDisabled}
+                  />
+                  <label htmlFor={r.id} className="gooey-radio-group__label">
+                    {r.label}
+                  </label>
+                </li>
+              );
+            })
           :
             null
         }
