@@ -56,7 +56,10 @@ describe('<Checkbox />', () => {
       <Checkbox id="test-checkbox" label="test-checkbox" value="foo" />
     );
     expect(wrapper.state('checked')).to.eql(false);
-    wrapper.find('input').simulate('change', { target: { checked: true } });
+    wrapper.find('input').simulate('change', {
+      target: { checked: true },
+      persist: () => {},
+    });
     expect(wrapper.state('checked')).to.eql(true);
   });
 
@@ -65,7 +68,10 @@ describe('<Checkbox />', () => {
       <Checkbox id="test-checkbox" label="test-checkbox" value="foo" isChecked />
     );
     expect(wrapper.state('checked')).to.eql(true);
-    wrapper.find('input').simulate('change', { target: { checked: false } });
+    wrapper.find('input').simulate('change', {
+      target: { checked: false },
+      persist: () => {},
+    });
     expect(wrapper.state('checked')).to.eql(false);
   });
 
@@ -84,7 +90,10 @@ describe('<Checkbox />', () => {
       <Checkbox id="test-checkbox" label="test-checkbox" value="foo" onChange={onChangeCallback} />
     );
     expect(onChangeCallback).to.have.property('callCount', 0);
-    wrapper.find('input').simulate('change', { target: { checked: true } });
+    wrapper.find('input').simulate('change', {
+      target: { checked: true },
+      persist: () => {},
+    });
     expect(onChangeCallback).to.have.property('callCount', 1);
   });
 });

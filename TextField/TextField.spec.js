@@ -82,7 +82,10 @@ describe('<TextField />', () => {
 
   it('should show an error message when the maxContentLength is exceeded', () => {
     const wrapper = shallow(<TextField maxContentLength={3} />);
-    wrapper.find('input').simulate('change', {target: {value: 'My new value'}});
+    wrapper.find('input').simulate('change', {
+      target: {value: 'My new value'},
+      persist: () => {},
+    });
     expect(wrapper.find('.gooey-text-field__error-message')).to.have.length(1);
     expect(wrapper.find('.gooey-text-field--error')).to.have.length(1);
   });
@@ -90,7 +93,10 @@ describe('<TextField />', () => {
   it('should trigger an onChange callback function', () => {
     const onChangeCallback = spy();
     const wrapper = shallow(<TextField onChange={onChangeCallback} />);
-    wrapper.find('input').simulate('change', {target: {value: 'a'}});
+    wrapper.find('input').simulate('change', {
+      target: {value: 'a'},
+      persist: () => {},
+    });
     expect(onChangeCallback).to.have.property('callCount', 1);
   });
 });

@@ -102,6 +102,7 @@ export default class TextArea extends Component {
    * @param {Event} [e] - The event triggered when the user types
    */
   handleInputValue = e => {
+    e.persist();
     this.setState({
       textAreaValue: e.target.value,
       isMaxLengthExceeded: false,

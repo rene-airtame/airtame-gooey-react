@@ -53,7 +53,10 @@ describe('<Select />', () => {
     const o = options.slice(0);
     delete o[2].isDisabled;
     const wrapper = mount(<Select options={o} />);
-    wrapper.find('select').simulate('change', { target: { value: 'Moltres' } });
+    wrapper.find('select').simulate('change', {
+      target: { value: 'Moltres' },
+      persist: () => {},
+    });
     expect(wrapper.state('selected')).to.eql('Moltres');
   });
 
@@ -61,7 +64,10 @@ describe('<Select />', () => {
     const onChangeCall = spy();
     const wrapper = mount(<Select options={options} onChange={onChangeCall} />);
     expect(onChangeCall).to.have.property('callCount', 0);
-    wrapper.find('select').simulate('change', { target: { value: 'moltres' } });
+    wrapper.find('select').simulate('change', {
+      target: { value: 'moltres' },
+      persist: () => {},
+    });
     expect(onChangeCall).to.have.property('callCount', 1);
   });
 });

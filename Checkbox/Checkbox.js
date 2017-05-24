@@ -82,6 +82,7 @@ export default class Checkbox extends Component {
    * @param {Event} evt The triggered event on the checkbox
    */
   toggleChecked = evt => {
+    evt.persist();
     this.setState({
       checked: !this.state.checked,
     }, () => {

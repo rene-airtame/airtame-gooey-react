@@ -135,6 +135,7 @@ export default class TextField extends Component {
    * @param {Event} [e] - The event triggered when the user types
    */
   handleInputValue = e => {
+    e.persist();
     this.setState({
       textFieldValue: e.target.value,
       isMaxLengthExceeded: false,

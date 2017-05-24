@@ -63,7 +63,10 @@ describe('<RadioGroup />', () => {
     );
 
     expect(wrapper.state('active')).to.eql('foo');
-    wrapper.find('#bar').simulate('change', { target: { value: 'bar' } });
+    wrapper.find('#bar').simulate('change', {
+      target: { value: 'bar' },
+      persist: () => {},
+    });
     expect(wrapper.state('active')).to.eql('bar');
   });
 
@@ -139,7 +142,10 @@ describe('<RadioGroup />', () => {
       <RadioGroup name="test-radio" data={radios} active="foo" onChange={onChangeCallback} />
     );
     expect(onChangeCallback).to.have.property('callCount', 0);
-    wrapper.find('#bar').simulate('change', { target: { value: 'bar' } });
+    wrapper.find('#bar').simulate('change', {
+      target: { value: 'bar' },
+      persist: () => {},
+    });
     expect(onChangeCallback).to.have.property('callCount', 1);
   });
 

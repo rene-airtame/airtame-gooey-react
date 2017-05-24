@@ -109,6 +109,7 @@ export default class RadioGroup extends Component {
    * @param {String}   [id] - The id of the selected radio
    */
   handleChange = (evt, id) => {
+    evt.persist();
     this.setState({
       active: id,
     }, () => {

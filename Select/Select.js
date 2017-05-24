@@ -118,6 +118,7 @@ export default class Select extends Component {
    * @param {Event} [evt] - The triggered event
    */
   updateSelected = evt => {
+    evt.persist();
     this.setState({
       selected: evt.target.value,
     }, () => {
