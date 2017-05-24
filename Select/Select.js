@@ -103,9 +103,10 @@ export default class Select extends Component {
     const { selected, options } = this.props;
     let selectedIndex = 0;
 
-    options.map((o, i) => {
+    options.some((o, i) => {
       if (o.id === selected) {
         selectedIndex = i;
+        return true;
       }
     });
 

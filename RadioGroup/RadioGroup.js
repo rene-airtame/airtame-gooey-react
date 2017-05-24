@@ -93,9 +93,10 @@ export default class RadioGroup extends Component {
   getDefaultActive = () => {
     const { data, active } = this.props;
     let validActive = false;
-    data.map(d => {
+    data.some(d => {
       if (d.id === active) {
         validActive = true;
+        return true;
       }
     });
 

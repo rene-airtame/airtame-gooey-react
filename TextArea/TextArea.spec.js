@@ -54,7 +54,7 @@ describe('<TextArea />', () => {
     expect(wrapper.find('.gooey-text-area--error')).to.have.length(1);
   });
 
-  it('should tirgger an onChange callback function', () => {
+  it('should trigger an onChange callback function', () => {
     const onChangeCallback = spy();
     const wrapper = shallow(<TextArea onChange={onChangeCallback} />);
     wrapper.find('textarea').simulate('change', {target: {value: 'a'}});
