@@ -8,3 +8,9 @@
 - Updated Button component to extend React.Component. This allows unsing the ref prop
 - Added onChange callback to the TextArea component
 - Added onChange callback to the TextField component
+
+## v0.0.2
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.0.1...v0.0.2)
+
+- Make onChange event persistent to work in an asynchronous way
