@@ -17,26 +17,18 @@ describe('<SideDrawer />', () => {
     expect(wrapper.find('.gooey-side-drawer--open')).to.have.length(0);
   });
 
-  it('should trigger the onClose function when pressing the close button', () => {
+  it('should trigger the onOverlayClick function when clicking SideDrawer overlay', () => {
     const closeCallback = spy();
 
-    const wrapper = mount(<SideDrawer isOpen={open} onClose={closeCallback}>content</SideDrawer>);
-    wrapper.find('button').simulate('click');
-    expect(closeCallback).to.have.property('callCount', 1);
-  });
-
-  it('should trigger the onClose function when clicking SideDrawer overlay', () => {
-    const closeCallback = spy();
-
-    const wrapper = mount(<SideDrawer isOpen={open} onClose={closeCallback}>content</SideDrawer>);
+    const wrapper = mount(<SideDrawer isOpen={open} onOverlayClick={closeCallback}>content</SideDrawer>);
     wrapper.find('.gooey-side-drawer').simulate('click');
     expect(closeCallback).to.have.property('callCount', 1);
   });
 
-  it('should not trigger the onClose function when clicking SideDrawer content', () => {
+  it('should not trigger the onOverlayClick function when clicking SideDrawer content', () => {
     const closeCallback = spy();
 
-    const wrapper = mount(<SideDrawer isOpen={open} onClose={closeCallback}>content</SideDrawer>);
+    const wrapper = mount(<SideDrawer isOpen={open} onOverlayClick={closeCallback}>content</SideDrawer>);
     wrapper.find('.gooey-side-drawer__content').simulate('click');
     expect(closeCallback).to.have.property('callCount', 0);
   });
