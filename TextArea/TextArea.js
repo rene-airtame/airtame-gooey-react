@@ -55,6 +55,14 @@ export default class TextArea extends Component {
      */
     onChange: PropTypes.func,
     /**
+     * ref for the textarea element
+     * @type {function | string}
+     */
+    textAreaRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string,
+    ]),
+    /**
      * Class name for the component
      * @type {string | Array}
      */
@@ -78,8 +86,9 @@ export default class TextArea extends Component {
     isReadOnly: false,
     maxContentLength: 0,
     errorMessage: '',
-    placeholder: '',
+    placeholder: null,
     onChange: null,
+    textAreaRef: null,
   };
 
   /**
@@ -139,6 +148,7 @@ export default class TextArea extends Component {
       errorMessage,
       id,
       placeholder,
+      textAreaRef,
     } = this.props;
     const textAreaClassNames = classNames(
       'gooey-text-area',
@@ -160,7 +170,8 @@ export default class TextArea extends Component {
           disabled={isDisabled}
           readOnly={isReadOnly}
           value={this.state.textAreaValue}
-          placeholder={placeholder.length ? placeholder : null}
+          placeholder={placeholder}
+          ref={textAreaRef}
         />
         {
         (isError && errorMessage.length || this.state.isMaxLengthExceeded)

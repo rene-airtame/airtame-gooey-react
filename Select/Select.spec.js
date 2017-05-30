@@ -70,4 +70,9 @@ describe('<Select />', () => {
     });
     expect(onChangeCall).to.have.property('callCount', 1);
   });
+
+  it('should properly create the ref for the select element', () => {
+    const wrapper = mount(<Select options={options} selectRef="selectEl" />);
+    expect(wrapper.ref('selectEl').type()).to.eql('select');
+  });
 });

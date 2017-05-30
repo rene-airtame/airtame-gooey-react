@@ -66,6 +66,14 @@ export default class TextField extends Component {
      */
     onChange: PropTypes.func,
     /**
+     * ref for the input element
+     * @type {function | string}
+     */
+    inputRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string,
+    ]),
+    /**
      * Class name for the component
      * @type {string | Array}
      */
@@ -89,10 +97,11 @@ export default class TextField extends Component {
     isReadOnly: false,
     maxContentLength: 0,
     errorMessage: '',
-    placeholder: '',
+    placeholder: null,
     type: 'text',
     disablePasswordToggle: false,
     onChange: null,
+    inputRef: null,
   };
 
   /**
@@ -195,6 +204,7 @@ export default class TextField extends Component {
       id,
       placeholder,
       disablePasswordToggle,
+      inputRef,
     } = this.props;
     const isPassword = type === 'password';
     const textFieldClassNames = classNames(
@@ -230,7 +240,8 @@ export default class TextField extends Component {
           onChange={this.handleInputValue}
           disabled={isDisabled}
           readOnly={isReadOnly}
-          placeholder={placeholder.length ? placeholder : null}
+          placeholder={placeholder}
+          ref={inputRef}
         />
         {
           isPassword && !disablePasswordToggle

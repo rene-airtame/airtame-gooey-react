@@ -22,6 +22,7 @@ export default function Switch(props) {
       isChecked={props.isOn}
       isDisabled={props.isDisabled}
       onChange={props.onChange}
+      inputRef={props.inputRef}
     />
   );
 }
@@ -64,6 +65,14 @@ Switch.propTypes = {
    * @type {function}
    */
   onChange: PropTypes.func,
+  /**
+   * ref for the input element
+   * @type {function | string}
+   */
+  inputRef: PropTypes.oneOfType([
+    PropTypes.func,
+    PropTypes.string,
+  ]),
   /**
    * Class name for the component
    * @type {string | Array}

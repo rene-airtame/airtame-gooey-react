@@ -28,7 +28,7 @@ export default class RadioGroup extends Component {
     name: PropTypes.string.isRequired,
     /**
      * data array for the radion buttons in the format:
-     * [{ id, label, value, isDisabled }]
+     * [{ id, label, value, isDisabled, ref }]
      * @type {Array}
      */
     data: PropTypes.arrayOf(PropTypes.shape({
@@ -36,6 +36,10 @@ export default class RadioGroup extends Component {
       label: PropTypes.string.isRequired,
       value: PropTypes.string.isRequired,
       isDisabled: PropTypes.bool,
+      ref: PropTypes.oneOfType([
+        PropTypes.func,
+        PropTypes.string,
+      ]),
     })).isRequired,
     /**
      * attibute indicating the checked radio button in the group.
@@ -156,6 +160,7 @@ export default class RadioGroup extends Component {
                     checked={this.state.active === r.id}
                     onChange={evt => this.handleChange(evt, r.id)}
                     disabled={isDisabled || r.isDisabled}
+                    ref={r.ref || null}
                   />
                   <label htmlFor={r.id} className="gooey-radio-group__label">
                     {r.label}

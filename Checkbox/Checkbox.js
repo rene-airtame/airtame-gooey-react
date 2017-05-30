@@ -52,6 +52,14 @@ export default class Checkbox extends Component {
      */
     onChange: PropTypes.func,
     /**
+     * ref for the input element
+     * @type {function | string}
+     */
+    inputRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string,
+    ]),
+    /**
      * Class name for the component
      * @type {string | Array}
      */
@@ -68,6 +76,7 @@ export default class Checkbox extends Component {
     isChecked: false,
     isDisabled: false,
     onChange: null,
+    inputRef: null,
   };
 
   /**
@@ -97,7 +106,7 @@ export default class Checkbox extends Component {
    * @return {JSX}  The markup to be rendered
    */
   render() {
-    const { id, label, isDisabled, name, value } = this.props;
+    const { id, label, isDisabled, name, value, inputRef } = this.props;
     const checkboxClassNames = classNames(
       'gooey-checkbox',
       {
@@ -117,6 +126,7 @@ export default class Checkbox extends Component {
           disabled={isDisabled}
           name={name || null}
           value={value}
+          ref={inputRef}
           onChange={evt => {
             this.toggleChecked(evt);
           }}

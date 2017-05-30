@@ -66,4 +66,9 @@ describe('<TextArea />', () => {
     });
     expect(onChangeCallback).to.have.property('callCount', 1);
   });
+
+  it('should properly create the ref for the textarea element', () => {
+    const wrapper = mount(<TextArea textAreaRef="textEl" />);
+    expect(wrapper.ref('textEl').type()).to.eql('textarea');
+  });
 });

@@ -62,6 +62,14 @@ export default class Select extends Component {
      */
     onChange: PropTypes.func,
     /**
+     * ref for the select element
+     * @type {function | string}
+     */
+    selectRef: PropTypes.oneOfType([
+      PropTypes.func,
+      PropTypes.string,
+    ]),
+    /**
      * Class name for the component
      * @type {string | Array}
      */
@@ -82,6 +90,7 @@ export default class Select extends Component {
     isError: false,
     id: null,
     onChange: null,
+    selectRef: null,
   };
 
   /**
@@ -139,6 +148,7 @@ export default class Select extends Component {
       isDisabled,
       isError,
       options,
+      selectRef,
     } = this.props;
 
     const componentClassNames = classNames(
@@ -158,6 +168,7 @@ export default class Select extends Component {
           onChange={this.updateSelected}
           value={this.state.selected}
           id={id}
+          ref={selectRef}
         >
           {
             options.map(option => (

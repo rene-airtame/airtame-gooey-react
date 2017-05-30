@@ -149,4 +149,23 @@ describe('<RadioGroup />', () => {
     expect(onChangeCallback).to.have.property('callCount', 1);
   });
 
+  it('should properly set refs for the radios', () => {
+    const radios = [{
+      id: 'foo',
+      label: 'Foo',
+      value: 'foo',
+      ref: 'firstInput'
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
+      ref: 'secondInput'
+    }];
+    const wrapper = mount(
+      <RadioGroup name="test-radio" data={radios} active="foo" />
+    );
+    expect(wrapper.ref('firstInput').is('#foo')).to.eql(true);
+    expect(wrapper.ref('secondInput').is('#bar')).to.eql(true);
+  });
+
 });

@@ -99,4 +99,9 @@ describe('<TextField />', () => {
     });
     expect(onChangeCallback).to.have.property('callCount', 1);
   });
+
+  it('should properly create the ref for the input element', () => {
+    const wrapper = mount(<TextField inputRef="inputEl" />);
+    expect(wrapper.ref('inputEl').type()).to.eql('input');
+  });
 });
