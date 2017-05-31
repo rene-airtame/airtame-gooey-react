@@ -23,4 +23,12 @@ describe('<Switch />', () => {
     );
     expect(wrapper.find('input')[0].attribs.checked).to.eql('');
   });
+
+  it('should add state classes for the switch', () => {
+    const wrapper = render(
+      <Switch id="test-siwtch" label="test-switch" value="foo" isOn isDisabled />
+    );
+    expect(wrapper.find('.gooey-switch--disabled')).to.have.length(1);
+    expect(wrapper.find('.gooey-switch--on')).to.have.length(1);
+  });
 });

@@ -11,7 +11,13 @@ import Checkbox from '../Checkbox';
  * @returns {JSX} The component's markup
  */
 export default function Switch(props) {
-  const switchClassNames = classNames('gooey-switch', props.className);
+  const switchClassNames = classNames(
+    'gooey-switch',
+    {
+      'gooey-switch--disabled': props.isDisabled,
+      'gooey-switch--on': props.isOn,
+    },
+    props.className);
   return (
     <Checkbox
       id={props.id}
