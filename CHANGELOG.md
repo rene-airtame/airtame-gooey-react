@@ -1,5 +1,11 @@
 # Airtame Gooey React CHANGELOG
 
+## v0.1.1
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.1.0...v0.1.1)
+
+- Change select options to use the label prop provided in the options array
+
 ## v0.1.0
 
 [Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.0.2...v0.1.0)

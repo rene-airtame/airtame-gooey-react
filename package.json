@@ -1,6 +1,6 @@
 {
   "name": "airtame-gooey-react",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "React component library compatible with airtame-gooey",
   "private": true,
   "homepage": "http://airtame.github.io/gooey",
