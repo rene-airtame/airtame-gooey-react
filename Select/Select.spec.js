@@ -4,6 +4,7 @@ import Select from './Select';
 const options = [
   {
     id: 'articuno',
+    label: 'Articuno',
     value: 'Articuno'
   },
   {
@@ -13,6 +14,7 @@ const options = [
   },
   {
     id: 'moltres',
+    label: 'Moltres',
     value: 'Moltres',
     isDisabled: true,
   }

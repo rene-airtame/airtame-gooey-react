@@ -30,7 +30,7 @@ export default class Select extends Component {
          * Optional text to be displayed as the option text instead of the value
          * @type {string}
          */
-        label: PropTypes.string,
+        label: PropTypes.string.isRequired,
         /**
          * The value for the select field
          * @type {string}
@@ -176,10 +176,10 @@ export default class Select extends Component {
                 key={option.id}
                 disabled={option.isDisabled || null}
                 value={option.value}
-                label={option.label || null}
+                label={option.label}
                 className="gooey-select__option"
               >
-                {option.value}
+                {option.label}
               </option>
             ))
           }
