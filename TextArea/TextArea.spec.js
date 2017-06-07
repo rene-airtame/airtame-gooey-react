@@ -57,6 +57,16 @@ describe('<TextArea />', () => {
     expect(wrapper.find('.gooey-text-area--error')).to.have.length(1);
   });
 
+  it('should trigger onChange callback with an error when the maxContentLength is exceeded', () => {
+    const onChangeCallback = spy();
+    const wrapper = shallow(<TextArea onChange={onChangeCallback} maxContentLength={3} />);
+    wrapper.find('textarea').simulate('change', {
+      target: {value: 'My new value'},
+      persist: () => {},
+    });
+    expect(onChangeCallback.args[0][1]).to.be.an('error');
+  });
+
   it('should trigger an onChange callback function', () => {
     const onChangeCallback = spy();
     const wrapper = shallow(<TextArea onChange={onChangeCallback} />);

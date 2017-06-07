@@ -155,7 +155,7 @@ export default class TextField extends Component {
           isMaxLengthExceeded: true,
         }, () => {
           if (this.props.onChange) {
-            this.props.onChange(e);
+            this.props.onChange(e, new Error(this.maxLengthError));
           }
         });
       } else {
