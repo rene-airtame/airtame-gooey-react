@@ -1,5 +1,11 @@
 # Airtame Gooey React CHANGELOG
 
+## v0.3.0
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.2.0...v0.3.0)
+
+- Pass an error as second argument to onChange when maxContentLength is exceeded
+
 ## v0.2.0
 
 [Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.1.1...v0.2.0)
