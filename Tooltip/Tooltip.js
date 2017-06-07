@@ -16,10 +16,13 @@ export default class Tooltip extends Component {
    */
   static propTypes = {
     /**
-     * Accessibility text for the tooltip
+     * The content for the tooltip for the tooltip
      * @type {string}
      */
-    title: PropTypes.string.isRequired,
+    content: PropTypes.oneOfType([
+      PropTypes.string,
+      PropTypes.element,
+    ]).isRequired,
     /**
      * Class name for the component
      * @type {string | Array}
@@ -80,13 +83,13 @@ export default class Tooltip extends Component {
           className="gooey-tooltip__title"
           style={titleStyles}
         >
-          {this.props.title}
+          {this.props.children}
         </span>
         <div
           className="gooey-tooltip__bubble"
           style={bubbleStyles}
         >
-          {this.props.children}
+          {this.props.content}
         </div>
       </div>
     );
