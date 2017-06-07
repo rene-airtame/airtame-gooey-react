@@ -1,5 +1,11 @@
 # Airtame Gooey React CHANGELOG
 
+## v0.2.0
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.1.1...v0.2.0)
+
+- Update tooltip to get its content as a prop and be triggered when hovering its children content
+
 ## v0.1.1
 
 [Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.1.0...v0.1.1)
