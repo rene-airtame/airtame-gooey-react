@@ -140,36 +140,32 @@ export default class RadioGroup extends Component {
     return (
       <ul className={radioGroupClassNames} id={id}>
         {
-          data
-            ?
-            data.map((r, i) => {
-              const inputClassNames = classNames(
-                'gooey-radio-group__input',
-                {
-                  'gooey-radio-group__input--disabled': isDisabled || r.isDisabled,
-                }
-              );
-              return (
-                <li key={r.id} className="gooey-radio-group__option">
-                  <input
-                    className={inputClassNames}
-                    type="radio"
-                    name={name}
-                    value={r.value}
-                    id={r.id}
-                    checked={this.state.active === r.id}
-                    onChange={evt => this.handleChange(evt, r.id)}
-                    disabled={isDisabled || r.isDisabled}
-                    ref={r.ref || null}
-                  />
-                  <label htmlFor={r.id} className="gooey-radio-group__label">
-                    {r.label}
-                  </label>
-                </li>
-              );
-            })
-          :
-            null
+          data.map((r, i) => {
+            const inputClassNames = classNames(
+              'gooey-radio-group__input',
+              {
+                'gooey-radio-group__input--disabled': isDisabled || r.isDisabled,
+              }
+            );
+            return (
+              <li key={r.id} className="gooey-radio-group__option">
+                <input
+                  className={inputClassNames}
+                  type="radio"
+                  name={name}
+                  value={r.value}
+                  id={r.id}
+                  checked={this.state.active === r.id}
+                  onChange={evt => this.handleChange(evt, r.id)}
+                  disabled={isDisabled || r.isDisabled}
+                  ref={r.ref || null}
+                />
+                <label htmlFor={r.id} className="gooey-radio-group__label">
+                  {r.label}
+                </label>
+              </li>
+            );
+          })
         }
       </ul>
     );

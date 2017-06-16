@@ -1,8 +1,11 @@
 <div align="center">
   <img src="https://s3-us-west-2.amazonaws.com/s.cdpn.io/244725/gooey-react.png" />
   <h1>Airtame Gooey React</h1>
-  <a href="https://www.npmjs.com/package/airtame-gooey-react"><img src="https://img.shields.io/npm/v/airtame-gooey-react.svg" alt="npm version" height="18"></a>
+  <a href="https://www.npmjs.com/package/airtame-gooey-react"><img src="https://img.shields.io/npm/v/airtame-gooey-react.svg" alt="npm version"></a>
   <a href="https://travis-ci.org/airtame/airtame-gooey-react" target="_blank"><img src="https://img.shields.io/travis/airtame/airtame-gooey-react.svg"></a>
+  <a href="https://codecov.io/gh/airtame/airtame-gooey-react" target="_blank">
+    <img src="https://img.shields.io/codecov/c/github/airtame/airtame-gooey-react.svg" alt="Codecov" />
+  </a>
 </div>
 
 

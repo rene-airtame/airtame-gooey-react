@@ -38,11 +38,11 @@ export default function Modal(props) {
         className={modalClassNames}
         style={modalStyles}
         onClick={
-          props.disableOverlayClose
+          !props.disableOverlayClose
           ?
-            () => {}
-          :
             props.onClose
+          :
+            null
         }
       >
         <div

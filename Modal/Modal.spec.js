@@ -13,36 +13,27 @@ describe('<Modal />', () => {
   });
 
   it('should trigger the onClose function when pressing the close button', () => {
-    let open = true;
-    const close = e => {
-      open = false;
-    };
+    const closeCallback = spy();
 
-    const wrapper = mount(<Modal isOpen={open} onClose={close}>content</Modal>);
+    const wrapper = mount(<Modal isOpen onClose={closeCallback}>content</Modal>);
     wrapper.find('button').simulate('click');
-    expect(open).to.eql(false);
+    expect(closeCallback).to.have.property('callCount', 1);
   });
 
   it('should trigger the onClose function when clicking modal overlay', () => {
-    let open = true;
-    const close = e => {
-      open = false;
-    };
+    const closeCallback = spy();
 
-    const wrapper = mount(<Modal isOpen={open} onClose={close}>content</Modal>);
+    const wrapper = mount(<Modal isOpen onClose={closeCallback}>content</Modal>);
     wrapper.find('.gooey-modal').simulate('click');
-    expect(open).to.eql(false);
+    expect(closeCallback).to.have.property('callCount', 1);
   });
 
   it('should not trigger the onClose function when clicking modal content', () => {
-    let open = true;
-    const close = e => {
-      open = false;
-    };
+    const closeCallback = spy();
 
-    const wrapper = mount(<Modal isOpen={open} onClose={close}>content</Modal>);
+    const wrapper = mount(<Modal isOpen onClose={closeCallback}>content</Modal>);
     wrapper.find('.gooey-modal__content').simulate('click');
-    expect(open).to.eql(true);
+    expect(closeCallback).to.have.property('callCount', 0);
   });
 
   it('should not close when clicking the overlay if the disableOverlayClose prop is passed', () => {
