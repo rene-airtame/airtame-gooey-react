@@ -250,6 +250,7 @@ export default class TextField extends Component {
               className={showPasswordButtonClassnames}
               onClick={this.handlePasswordVisibility}
               title={toggleText}
+              type="button"
             >
               {toggleText}
             </button>
