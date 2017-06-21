@@ -35,7 +35,10 @@ export default class Select extends Component {
          * The value for the select field
          * @type {string}
          */
-        value: PropTypes.string.isRequired,
+        value: PropTypes.oneOfType([
+          PropTypes.number,
+          PropTypes.string,
+        ]).isRequired,
         /**
          * Flag indicating if a the specific option is disabled
          */
