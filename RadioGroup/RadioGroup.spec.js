@@ -187,9 +187,45 @@ describe('<RadioGroup />', () => {
     const wrapper = shallow(
       <RadioGroup name="test-radio" data={radios} active="foo" />
     );
-    console.log(wrapper.find('input'))
     wrapper.find('#foo').simulate('focus')
     expect(focusCallback).to.have.property('callCount', 1);
+  });
+
+  it('should set the proper state if valid props are updated', () => {
+    const radios = [{
+      id: 'foo',
+      label: 'Foo',
+      value: 'foo',
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
+    }];
+    const wrapper = shallow(
+      <RadioGroup name="test-radio" data={radios} active="foo" />
+    );
+    expect(wrapper.state('active')).to.eql('foo');
+    wrapper.setProps({ active: 'bar' })
+    expect(wrapper.state('active')).to.eql('bar');
+  });
+
+  it('should not touch the state if invalid props change', () => {
+    const stateSpy = spy(RadioGroup.prototype, 'setState');
+    const radios = [{
+      id: 'foo',
+      label: 'Foo',
+      value: 'foo',
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
+    }];
+    const wrapper = shallow(
+      <RadioGroup name="test-radio" data={radios} active="foo" />
+    );
+    expect(stateSpy.callCount).to.eql(0);
+    wrapper.setProps({ name: 'updated-name' });
+    expect(stateSpy.callCount).to.eql(0);
   });
 
 });

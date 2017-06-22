@@ -106,16 +106,31 @@ export default class Select extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      selected: this.getDefaultSelected(),
+      selected: this.getDefaultSelected(this.props.options, this.props.selected),
     };
   }
 
   /**
+   * Updates state variables that are initialized based on props if the props change at some point
+   * @param {Object} nextProps - The upcoming props
+   */
+  componentWillReceiveProps(nextProps) {
+    const { selected, options } = this.props;
+    if ((selected !== nextProps.selected) || (options !== nextProps.options)) {
+      this.setState({
+        selected: this.getDefaultSelected(nextProps.options, nextProps.selected),
+      });
+    }
+  }
+
+  /**
    * Finds the default option value for the select
+   * @param {Array} options - Array of option objects
+   * @param {string} selected - ID for the selected option
+   *
    * @return {String|null} The id of the selected element or null
    */
-  getDefaultSelected = () => {
-    const { selected, options } = this.props;
+  getDefaultSelected = (options, selected) => {
     let selectedIndex = 0;
 
     options.some((o, i) => {

@@ -102,6 +102,7 @@ export default class TextField extends Component {
     disablePasswordToggle: false,
     onChange: null,
     inputRef: null,
+    value: '',
   };
 
   /**
@@ -123,7 +124,7 @@ export default class TextField extends Component {
    */
   state = {
     isPasswordShown: false,
-    textFieldValue: this.props.value || '',
+    textFieldValue: this.props.value,
     isMaxLengthExceeded: false,
   };
 
@@ -139,6 +140,22 @@ export default class TextField extends Component {
   }
 
   /**
+   * Updates state variables that are initialized based on props if the props change at some point
+   * @param {Object} nextProps - The upcoming props
+   */
+  componentWillReceiveProps(nextProps) {
+    if (this.props.value !== nextProps.value) {
+      this.setState({
+        textFieldValue: nextProps.value,
+      }, () => {
+        this.attemptOnChangeCallback({
+          value: nextProps.value,
+        });
+      });
+    }
+  }
+
+  /**
    * Takes care of updating the value of the input field when the user types in it
    *
    * @param {Event} [e] - The event triggered when the user types
@@ -149,21 +166,32 @@ export default class TextField extends Component {
       textFieldValue: e.target.value,
       isMaxLengthExceeded: false,
     }, () => {
-      const { maxContentLength } = this.props;
-      if (maxContentLength && this.state.textFieldValue.length > maxContentLength) {
-        this.setState({
-          isMaxLengthExceeded: true,
-        }, () => {
-          if (this.props.onChange) {
-            this.props.onChange(e, new Error(this.maxLengthError));
-          }
-        });
-      } else {
-        if (this.props.onChange) {
-          this.props.onChange(e);
-        }
-      }
+      this.attemptOnChangeCallback({
+        value: this.state.textFieldValue,
+      });
     });
+  }
+
+  /**
+   * Attempts to trigger the onChange callback function
+   *
+   * @param {Object} [e] - Object containig the current value of the textarea
+   */
+  attemptOnChangeCallback = e => {
+    const { maxContentLength } = this.props;
+    if (maxContentLength && this.state.textFieldValue.length > maxContentLength) {
+      this.setState({
+        isMaxLengthExceeded: true,
+      }, () => {
+        if (this.props.onChange) {
+          this.props.onChange(e, new Error(this.maxLengthError));
+        }
+      });
+    } else {
+      if (this.props.onChange) {
+        this.props.onChange(e);
+      }
+    }
   }
 
   /**

@@ -98,4 +98,19 @@ describe('<TextArea />', () => {
     wrapper.find('textarea').simulate('focus')
     expect(focusCallback).to.have.property('callCount', 1);
   });
+
+  it('should set the proper value state if the prop is updated', () => {
+    const wrapper = shallow(<TextArea value="foo" />);
+    expect(wrapper.state('textAreaValue')).to.eql('foo');
+    wrapper.setProps({ value: 'bar' })
+    expect(wrapper.state('textAreaValue')).to.eql('bar');
+  });
+
+  it('should not touch the state if props other than value change', () => {
+    const stateSpy = spy(TextArea.prototype, 'setState');
+    const wrapper = shallow(<TextArea value="foo" />);
+    expect(stateSpy.callCount).to.eql(0);
+    wrapper.setProps({ placeholder: 'updated placeholder' });
+    expect(stateSpy.callCount).to.eql(0);
+  });
 });

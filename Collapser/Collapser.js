@@ -51,12 +51,30 @@ export default class Collapser extends Component {
     ]),
   };
 
+  /**
+   * Default prop values
+   */
   static defaultProps = {
     collapsed: false,
   }
 
+  /**
+   * Component's initial state
+   */
   state = {
     collapsed: this.props.collapsed,
+  }
+
+  /**
+   * Updates state variables that are initialized based on props if the props change at some point
+   * @param {Object} nextProps - The upcoming props
+   */
+  componentWillReceiveProps(nextProps) {
+    if (this.props.collapsed !== nextProps.collapsed) {
+      this.setState({
+        collapsed: nextProps.collapsed,
+      });
+    }
   }
 
   /**

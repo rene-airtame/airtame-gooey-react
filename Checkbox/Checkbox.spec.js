@@ -112,4 +112,23 @@ describe('<Checkbox />', () => {
     wrapper.find('input').simulate('focus')
     expect(focusCallback).to.have.property('callCount', 1);
   });
+
+  it('should set the proper checked state if the prop is updated', () => {
+    const wrapper = shallow(
+      <Checkbox id="test-checkbox" label="test-checkbox" value="foo" isChecked />
+    );
+    expect(wrapper.state('checked')).to.eql(true);
+    wrapper.setProps({ isChecked: false })
+    expect(wrapper.state('checked')).to.eql(false);
+  });
+
+  it('should not touch the state if props other than isChecked change', () => {
+    const stateSpy = spy(Checkbox.prototype, 'setState');
+    const wrapper = shallow(
+      <Checkbox id="test-checkbox" label="test-checkbox" value="foo" isChecked />
+    );
+    expect(stateSpy.callCount).to.eql(0);
+    wrapper.setProps({ label: 'updated label' });
+    expect(stateSpy.callCount).to.eql(0);
+  });
 });

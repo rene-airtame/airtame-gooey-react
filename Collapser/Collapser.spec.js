@@ -52,4 +52,19 @@ describe('<Collapser />', () => {
     const wrapper = render(<Collapser title="Test">content</Collapser>);
     expect(wrapper.find('.gooey-collapser__container')).to.have.style('height', 'auto');
   });
+
+  it('should set the proper collapsed state if the prop is updated', () => {
+    const wrapper = shallow(<Collapser title="Test">content</Collapser>);
+    expect(wrapper.state('collapsed')).to.eql(false);
+    wrapper.setProps({ collapsed: true })
+    expect(wrapper.state('collapsed')).to.eql(true);
+  });
+
+  it('should not touch the state if props other than collapsed change', () => {
+    const stateSpy = spy(Collapser.prototype, 'setState');
+    const wrapper = shallow(<Collapser title="Test">content</Collapser>);
+    expect(stateSpy.callCount).to.eql(0);
+    wrapper.setProps({ title: 'updated title' });
+    expect(stateSpy.callCount).to.eql(0);
+  });
 });

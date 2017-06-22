@@ -84,7 +84,19 @@ export default class Checkbox extends Component {
    * Component's initial state
    */
   state = {
-    checked: this.props.isChecked || false,
+    checked: this.props.isChecked,
+  }
+
+  /**
+   * Updates state variables that are initialized based on props if the props change at some point
+   * @param {Object} nextProps - The upcoming props
+   */
+  componentWillReceiveProps(nextProps) {
+    if (this.props.isChecked !== nextProps.isChecked) {
+      this.setState({
+        checked: nextProps.isChecked,
+      });
+    }
   }
 
   /**

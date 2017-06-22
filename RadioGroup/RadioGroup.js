@@ -87,16 +87,31 @@ export default class RadioGroup extends Component {
     super(props);
 
     this.state = {
-      active: this.getDefaultActive(),
+      active: this.getDefaultActive(this.props.data, this.props.active),
     };
   }
 
   /**
+   * Updates state variables that are initialized based on props if the props change at some point
+   * @param {Object} nextProps - The upcoming props
+   */
+  componentWillReceiveProps(nextProps) {
+    const { data, active } = this.props;
+    if ((data !== nextProps.data) || (active !== nextProps.active)) {
+      this.setState({
+        active: this.getDefaultActive(nextProps.data, nextProps.active),
+      });
+    }
+  }
+
+  /**
    * Gets the id for the default active radio
+   * @param {Array} [data] - Array of data objects
+   * @param {string} [active] - ID of the active radio
+   *
    * @return {String} The id of the active radio
    */
-  getDefaultActive = () => {
-    const { data, active } = this.props;
+  getDefaultActive = (data, active) => {
     let validActive = false;
     data.some(d => {
       if (d.id === active) {

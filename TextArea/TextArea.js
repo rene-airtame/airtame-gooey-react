@@ -50,7 +50,7 @@ export default class TextArea extends Component {
      */
     errorMessage: PropTypes.string,
     /**
-     * Optional onChange callback
+     * Optional onChange callback, receives an object with the value and an error as parameters
      * @type {Function}
      */
     onChange: PropTypes.func,
@@ -89,6 +89,7 @@ export default class TextArea extends Component {
     placeholder: null,
     onChange: null,
     textAreaRef: null,
+    value: '',
   };
 
   /**
@@ -101,9 +102,25 @@ export default class TextArea extends Component {
    * Component's initial state
    */
   state = {
-    textAreaValue: this.props.value || '',
+    textAreaValue: this.props.value,
     isMaxLengthExceeded: false,
   };
+
+  /**
+   * Updates state variables that are initialized based on props if the props change at some point
+   * @param {Object} nextProps - The upcoming props
+   */
+  componentWillReceiveProps(nextProps) {
+    if (this.props.value !== nextProps.value) {
+      this.setState({
+        textAreaValue: nextProps.value,
+      }, () => {
+        this.attemptOnChangeCallback({
+          value: nextProps.value,
+        });
+      });
+    }
+  }
 
   /**
    * Takes care of updating the value of the input field when the user types in it
@@ -111,26 +128,36 @@ export default class TextArea extends Component {
    * @param {Event} [e] - The event triggered when the user types
    */
   handleInputValue = e => {
-    e.persist();
     this.setState({
       textAreaValue: e.target.value,
       isMaxLengthExceeded: false,
     }, () => {
-      const { maxContentLength } = this.props;
-      if (maxContentLength && this.state.textAreaValue.length > maxContentLength) {
-        this.setState({
-          isMaxLengthExceeded: true,
-        }, () => {
-          if (this.props.onChange) {
-            this.props.onChange(e, new Error(this.maxLengthError));
-          }
-        });
-      } else {
-        if (this.props.onChange) {
-          this.props.onChange(e);
-        }
-      }
+      this.attemptOnChangeCallback({
+        value: this.state.textAreaValue,
+      });
     });
+  }
+
+  /**
+   * Attempts to trigger the onChange callback function
+   *
+   * @param {Object} [e] - Object containig the current value of the textarea
+   */
+  attemptOnChangeCallback = e => {
+    const { maxContentLength } = this.props;
+    if (maxContentLength && this.state.textAreaValue.length > maxContentLength) {
+      this.setState({
+        isMaxLengthExceeded: true,
+      }, () => {
+        if (this.props.onChange) {
+          this.props.onChange(e, new Error(this.maxLengthError));
+        }
+      });
+    } else {
+      if (this.props.onChange) {
+        this.props.onChange(e);
+      }
+    }
   }
 
   /**

@@ -86,4 +86,24 @@ describe('<Select />', () => {
     wrapper.find('select').simulate('focus')
     expect(focusCallback).to.have.property('callCount', 1);
   });
+
+
+  it('should set the proper state if valid props are updated', () => {
+    const wrapper = shallow(
+      <Select options={options} selected="zapdos" />
+    );
+    expect(wrapper.state('selected')).to.eql('Zapdos');
+    wrapper.setProps({ selected: 'articuno' })
+    expect(wrapper.state('selected')).to.eql('Articuno');
+  });
+
+  it('should not touch the state if invalid props change', () => {
+    const stateSpy = spy(Select.prototype, 'setState');
+    const wrapper = shallow(
+      <Select options={options} selected="zapdos" />
+    );
+    expect(stateSpy.callCount).to.eql(0);
+    wrapper.setProps({ isError: true });
+    expect(stateSpy.callCount).to.eql(0);
+  });
 });
