@@ -1,5 +1,15 @@
 # Airtame Gooey React CHANGELOG
 
+## v0.4.0
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.3.0...v0.4.0)
+
+- Fixed state reassignment for state variables that are dependant on props
+- Added support for additional valid props to form field components
+- Added `type="button"` to the toggle password button in the TextField component
+- Added test coverage and test reports with CodeCov
+- Updated select value prop to also accept numbers
+
 ## v0.3.0
 
 [Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.2.0...v0.3.0)
