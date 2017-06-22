@@ -110,8 +110,25 @@ describe('<TextField />', () => {
     expect(onChangeCallback).to.have.property('callCount', 1);
   });
 
+  it('should not attempt to trigger an onChange callback function is not passed', () => {
+    const onChangeCallback = spy();
+    const wrapper = shallow(<TextField />);
+    wrapper.find('input').simulate('change', {
+      target: {value: 'a'},
+      persist: () => {},
+    });
+    expect(onChangeCallback).to.have.property('callCount', 0);
+  });
+
   it('should properly create the ref for the input element', () => {
     const wrapper = mount(<TextField inputRef="inputEl" />);
     expect(wrapper.ref('inputEl').type()).to.eql('input');
+  });
+
+  it('should propagate additional valid props to the input element', () => {
+    const focusCallback = spy();
+    const wrapper = shallow(<TextField onFocus={focusCallback} />);
+    wrapper.find('input').simulate('focus')
+    expect(focusCallback).to.have.property('callCount', 1);
   });
 });

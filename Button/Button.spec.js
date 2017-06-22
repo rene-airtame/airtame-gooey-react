@@ -22,14 +22,17 @@ describe('<Button />', () => {
     expect(wrapper.find('.gooey-button--spinning')).to.have.length(1);
   });
 
-  it('should call the triggerHandler prop function on click', () => {
-    let wasCalled = false;
-    const triggerHandler = () => {
-      wasCalled = true;
-    };
+  it('should trigger the onClick callback when clicked', () => {
+    const clickCallback = spy();
+    const wrapper = shallow(<Button onClick={clickCallback} />);
+    wrapper.find('button').simulate('click')
+    expect(clickCallback).to.have.property('callCount', 1);
+  });
 
-    const wrapper = shallow(<Button onClick={triggerHandler} />);
-    wrapper.find('button').simulate('click');
-    expect(wasCalled).to.eql(true);
+  it('should propagate additional valid props to the button element', () => {
+    const focusCallback = spy();
+    const wrapper = shallow(<Button onFocus={focusCallback} />);
+    wrapper.find('button').simulate('focus')
+    expect(focusCallback).to.have.property('callCount', 1);
   });
 });

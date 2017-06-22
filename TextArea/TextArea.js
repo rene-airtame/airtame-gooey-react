@@ -134,6 +134,29 @@ export default class TextArea extends Component {
   }
 
   /**
+   * Sanitizes the component props by removing all custom props so the rest can be assigned to the
+   * input element
+   *
+   * @return {Object} - The sanitized props
+   */
+  getProps = () => {
+    const props = Object.assign({}, this.props);
+
+    delete props.value;
+    delete props.className;
+    delete props.inputType;
+    delete props.onChange;
+    delete props.isDisabled;
+    delete props.isReadOnly;
+    delete props.isError;
+    delete props.maxContentLength;
+    delete props.errorMessage;
+    delete props.textAreaRef;
+
+    return props;
+  }
+
+  /**
    * The render method.
    * Builds the markup to be rendered by the component
    *
@@ -146,10 +169,9 @@ export default class TextArea extends Component {
       isReadOnly,
       className,
       errorMessage,
-      id,
-      placeholder,
       textAreaRef,
     } = this.props;
+
     const textAreaClassNames = classNames(
       'gooey-text-area',
       {
@@ -160,18 +182,18 @@ export default class TextArea extends Component {
       className
     );
 
+    const props = this.getProps();
+
     return (
       <div className={textAreaClassNames}>
         <textarea
-          id={id}
           className="gooey-text-area__textarea"
-          ref={textArea => this.textArea = textArea}
           onChange={this.handleInputValue}
           disabled={isDisabled}
           readOnly={isReadOnly}
           value={this.state.textAreaValue}
-          placeholder={placeholder}
           ref={textAreaRef}
+          {...props}
         />
         {
         (isError && errorMessage.length || this.state.isMaxLengthExceeded)

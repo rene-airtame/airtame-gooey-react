@@ -36,6 +36,9 @@ export default class Button extends Component {
     ]),
   };
 
+  /**
+   * Default prop values
+   */
   static defaultProps = {
     isDisabled: false,
     isSpinning: false,
@@ -59,19 +62,36 @@ export default class Button extends Component {
   }
 
   /**
+   * Sanitizes the component props by removing all custom props so the rest can be assigned to the
+   * button element
+   *
+   * @return {Object} - The sanitized props
+   */
+  getProps = () => {
+    const props = Object.assign({}, this.props);
+
+    delete props.className;
+    delete props.isDisabled;
+    delete props.isSpinning;
+
+    return props;
+  }
+
+  /**
    * The rendes method
    * @return {JSX} The component's markup
    */
   render() {
-    const {isDisabled, onClick} = this.props;
+    const {isDisabled} = this.props;
 
     const buttonClassNames = this.getButtonClassNames();
+    const extraProps = this.getProps();
 
     return (
       <button
         className={buttonClassNames}
         disabled={isDisabled}
-        onClick={onClick}
+        {...extraProps}
       >
         {this.props.children}
       </button>

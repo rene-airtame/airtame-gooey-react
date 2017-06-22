@@ -40,6 +40,7 @@ export default class RadioGroup extends Component {
         PropTypes.func,
         PropTypes.string,
       ]),
+      props: PropTypes.object,
     })).isRequired,
     /**
      * attibute indicating the checked radio button in the group.
@@ -159,6 +160,7 @@ export default class RadioGroup extends Component {
                   onChange={evt => this.handleChange(evt, r.id)}
                   disabled={isDisabled || r.isDisabled}
                   ref={r.ref || null}
+                  {...r.props}
                 />
                 <label htmlFor={r.id} className="gooey-radio-group__label">
                   {r.label}

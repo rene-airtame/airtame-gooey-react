@@ -77,8 +77,25 @@ describe('<TextArea />', () => {
     expect(onChangeCallback).to.have.property('callCount', 1);
   });
 
+  it('should not attempt to trigger an onChange callback function is not passed', () => {
+    const onChangeCallback = spy();
+    const wrapper = shallow(<TextArea />);
+    wrapper.find('textarea').simulate('change', {
+      target: {value: 'a'},
+      persist: () => {},
+    });
+    expect(onChangeCallback).to.have.property('callCount', 0);
+  });
+
   it('should properly create the ref for the textarea element', () => {
     const wrapper = mount(<TextArea textAreaRef="textEl" />);
     expect(wrapper.ref('textEl').type()).to.eql('textarea');
+  });
+
+  it('should propagate additional valid props to the textarea element', () => {
+    const focusCallback = spy();
+    const wrapper = shallow(<TextArea onFocus={focusCallback} />);
+    wrapper.find('textarea').simulate('focus')
+    expect(focusCallback).to.have.property('callCount', 1);
   });
 });

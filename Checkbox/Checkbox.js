@@ -77,6 +77,7 @@ export default class Checkbox extends Component {
     isDisabled: false,
     onChange: null,
     inputRef: null,
+    name: null,
   };
 
   /**
@@ -102,11 +103,30 @@ export default class Checkbox extends Component {
   }
 
   /**
+   * Sanitizes the component props by removing all custom props so the rest can be assigned to the
+   * input element
+   *
+   * @return {Object} - The sanitized props
+   */
+  getProps = () => {
+    const props = Object.assign({}, this.props);
+
+    delete props.className;
+    delete props.type;
+    delete props.isChecked;
+    delete props.isDisabled;
+    delete props.inputRef;
+    delete props.onChange;
+
+    return props;
+  }
+
+  /**
    * Builds the component's markup
    * @return {JSX}  The markup to be rendered
    */
   render() {
-    const { id, label, isDisabled, name, value, inputRef } = this.props;
+    const { id, label, isDisabled, inputRef } = this.props;
     const checkboxClassNames = classNames(
       'gooey-checkbox',
       {
@@ -116,20 +136,20 @@ export default class Checkbox extends Component {
       this.props.className
     );
 
+    const props = this.getProps();
+
     return (
       <div className={checkboxClassNames}>
         <input
-          id={id}
           className="gooey-checkbox__input"
           type="checkbox"
           checked={this.state.checked}
           disabled={isDisabled}
-          name={name || null}
-          value={value}
           ref={inputRef}
           onChange={evt => {
             this.toggleChecked(evt);
           }}
+          {...props}
         />
         <label
           htmlFor={id}

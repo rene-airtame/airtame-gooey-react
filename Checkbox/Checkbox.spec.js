@@ -103,4 +103,13 @@ describe('<Checkbox />', () => {
     );
     expect(wrapper.ref('inputEl').type()).to.eql('input');
   });
+
+  it('should propagate additional valid props to the input element', () => {
+    const focusCallback = spy();
+    const wrapper = shallow(
+      <Checkbox id="test-checkbox" label="test-checkbox" value="foo" onFocus={focusCallback} />
+    );
+    wrapper.find('input').simulate('focus')
+    expect(focusCallback).to.have.property('callCount', 1);
+  });
 });

@@ -31,4 +31,13 @@ describe('<Switch />', () => {
     expect(wrapper.find('.gooey-switch--disabled')).to.have.length(1);
     expect(wrapper.find('.gooey-switch--on')).to.have.length(1);
   });
+
+  it('should propagate additional valid props to the input element', () => {
+    const focusCallback = spy();
+    const wrapper = mount(
+      <Switch id="test-siwtch" label="test-switch" value="foo"  onFocus={focusCallback} />
+    );
+    wrapper.find('input').simulate('focus')
+    expect(focusCallback).to.have.property('callCount', 1);
+  });
 });

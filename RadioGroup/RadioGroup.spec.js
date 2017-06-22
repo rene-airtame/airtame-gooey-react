@@ -168,4 +168,28 @@ describe('<RadioGroup />', () => {
     expect(wrapper.ref('secondInput').is('#bar')).to.eql(true);
   });
 
+  it('should add valid additional props to specified radios', () => {
+    const focusCallback = spy();
+    const radios = [{
+      id: 'foo',
+      label: 'Foo',
+      value: 'foo',
+      ref: 'firstInput',
+      props: {
+        onFocus: focusCallback
+      }
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
+      ref: 'secondInput'
+    }];
+    const wrapper = shallow(
+      <RadioGroup name="test-radio" data={radios} active="foo" />
+    );
+    console.log(wrapper.find('input'))
+    wrapper.find('#foo').simulate('focus')
+    expect(focusCallback).to.have.property('callCount', 1);
+  });
+
 });

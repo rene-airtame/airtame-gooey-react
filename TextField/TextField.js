@@ -188,6 +188,31 @@ export default class TextField extends Component {
   }
 
   /**
+   * Sanitizes the component props by removing all custom props so the rest can be assigned to the
+   * input element
+   *
+   * @return {Object} - The sanitized props
+   */
+  getProps = () => {
+    const props = Object.assign({}, this.props);
+
+    delete props.value;
+    delete props.type;
+    delete props.className;
+    delete props.inputType;
+    delete props.onChange;
+    delete props.isDisabled;
+    delete props.isReadOnly;
+    delete props.isError;
+    delete props.maxContentLength;
+    delete props.errorMessage;
+    delete props.disablePasswordToggle;
+    delete props.inputRef;
+
+    return props;
+  }
+
+  /**
    * The render method.
    * Builds the markup to be rendered by the component
    *
@@ -201,8 +226,6 @@ export default class TextField extends Component {
       type,
       className,
       errorMessage,
-      id,
-      placeholder,
       disablePasswordToggle,
       inputRef,
     } = this.props;
@@ -227,21 +250,21 @@ export default class TextField extends Component {
 
     const inputType = this.getType();
 
+    const props = this.getProps();
+
     const toggleText = this.state.isPasswordShown ? 'Hide password' : 'Show password';
 
     return (
       <div className={textFieldClassNames}>
         <input
-          id={id}
           className="gooey-text-field__input"
           type={inputType}
-          ref={textField => this.textField = textField}
           value={this.state.textFieldValue}
           onChange={this.handleInputValue}
           disabled={isDisabled}
           readOnly={isReadOnly}
-          placeholder={placeholder}
           ref={inputRef}
+          {...props}
         />
         {
           isPassword && !disablePasswordToggle

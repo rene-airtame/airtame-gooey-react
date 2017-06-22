@@ -10,7 +10,7 @@ import classNames from 'classnames';
  * @extends {Component}
  */
 export default class Select extends Component {
-    /**
+  /**
    * List of possible props
    * @type {Object}
    */
@@ -87,6 +87,9 @@ export default class Select extends Component {
     id: PropTypes.string,
   };
 
+  /**
+   * Default prop values
+   */
   static defaultProps = {
     selected: null,
     isDisabled: false,
@@ -141,13 +144,32 @@ export default class Select extends Component {
   }
 
   /**
+   * Sanitizes the component props by removing all custom props so the rest can be assigned to the
+   * input element
+   *
+   * @return {Object} - The sanitized props
+   */
+  getProps = () => {
+    const props = Object.assign({}, this.props);
+
+    delete props.options;
+    delete props.selected;
+    delete props.isDisabled;
+    delete props.isError;
+    delete props.selectRef;
+    delete props.id;
+    delete props.onChange;
+
+    return props;
+  }
+
+  /**
    * The render method for the component
    * @return {JSX} The component's markup
    */
   render() {
     const {
       className,
-      id,
       isDisabled,
       isError,
       options,
@@ -163,6 +185,8 @@ export default class Select extends Component {
       className
     );
 
+    const props = this.getProps();
+
     return (
       <div className={componentClassNames}>
         <select
@@ -170,8 +194,8 @@ export default class Select extends Component {
           disabled={isDisabled}
           onChange={this.updateSelected}
           value={this.state.selected}
-          id={id}
           ref={selectRef}
+          {...props}
         >
           {
             options.map(option => (

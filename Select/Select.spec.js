@@ -77,4 +77,13 @@ describe('<Select />', () => {
     const wrapper = mount(<Select options={options} selectRef="selectEl" />);
     expect(wrapper.ref('selectEl').type()).to.eql('select');
   });
+
+  it('should propagate additional valid props to the select element', () => {
+    const focusCallback = spy();
+    const wrapper = shallow(
+      <Select options={options} onFocus={focusCallback} />
+    );
+    wrapper.find('select').simulate('focus')
+    expect(focusCallback).to.have.property('callCount', 1);
+  });
 });
