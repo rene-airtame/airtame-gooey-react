@@ -2,11 +2,11 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
- /**
-   * Builds the Collapser's styles based on the current state
-   * @param  {boolean} [isCollapsed] - Flag indicating if the Collapser is open or closed
-   * @return {Object}                  Behavioral styles for the Collapser
-   */
+/**
+ * Builds the Collapser's styles based on the current state
+ * @param  {boolean} [isCollapsed] - Flag indicating if the Collapser is open or closed
+ * @return {Object}                  Behavioral styles for the Collapser
+ */
 function getStyles(isCollapsed) {
   return isCollapsed
   ?
@@ -56,14 +56,14 @@ export default class Collapser extends Component {
    */
   static defaultProps = {
     collapsed: false,
-  }
+  };
 
   /**
    * Component's initial state
    */
   state = {
     collapsed: this.props.collapsed,
-  }
+  };
 
   /**
    * Updates state variables that are initialized based on props if the props change at some point

@@ -85,7 +85,7 @@ export default class Checkbox extends Component {
    */
   state = {
     checked: this.props.isChecked,
-  }
+  };
 
   /**
    * Updates state variables that are initialized based on props if the props change at some point
