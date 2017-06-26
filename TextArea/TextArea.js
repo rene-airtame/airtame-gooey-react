@@ -114,10 +114,6 @@ export default class TextArea extends Component {
     if (this.props.value !== nextProps.value) {
       this.setState({
         textAreaValue: nextProps.value,
-      }, () => {
-        this.attemptOnChangeCallback({
-          value: nextProps.value,
-        });
       });
     }
   }
@@ -132,16 +128,14 @@ export default class TextArea extends Component {
       textAreaValue: e.target.value,
       isMaxLengthExceeded: false,
     }, () => {
-      this.attemptOnChangeCallback({
-        value: this.state.textAreaValue,
-      });
+      this.attemptOnChangeCallback(e);
     });
   }
 
   /**
    * Attempts to trigger the onChange callback function
    *
-   * @param {Object} [e] - Object containig the current value of the textarea
+   * @param {Event} [e] - The triggered event
    */
   attemptOnChangeCallback = e => {
     const { maxContentLength } = this.props;
