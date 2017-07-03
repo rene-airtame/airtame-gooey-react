@@ -50,6 +50,7 @@
     "eslint-plugin-react": "^5.2.0",
     "jsdom": "=9.12.0",
     "mocha": "^3.2.0",
+    "mocha-appveyor-reporter": "^0.4.0",
     "nyc": "^11.0.2",
     "react-dom": "^15.5.4",
     "react-test-renderer": "^15.5.4",
@@ -99,8 +100,10 @@
   },
   "scripts": {
     "unit": "cross-env NODE_ENV=test nyc mocha --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
+    "unit:win": "cross-env NODE_ENV=test nyc mocha --reporter mocha-appveyor-reporter --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
     "report-coverage": "nyc report --reporter=lcov && codecov",
     "lint": "eslint ./**/*.js --quiet",
-    "test": "npm run lint && npm run unit"
+    "test": "npm run lint && npm run unit",
+    "test:win": "npm run lint && npm run unit:win"
   }
 }
