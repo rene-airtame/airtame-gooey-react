@@ -33,7 +33,7 @@ export default class Select extends Component {
         label: PropTypes.string.isRequired,
         /**
          * The value for the select field
-         * @type {string}
+         * @type {string|number}
          */
         value: PropTypes.oneOfType([
           PropTypes.number,
@@ -47,9 +47,12 @@ export default class Select extends Component {
     ).isRequired,
     /**
      * ID for the default selected option.
-     * @type string
+     * @type {string|number}
      */
-    selected: PropTypes.string,
+    selected: PropTypes.oneOfType([
+      PropTypes.number,
+      PropTypes.string,
+    ]),
     /**
      * Flag indicating if the select is in a disabled state
      * @type {boolean}
