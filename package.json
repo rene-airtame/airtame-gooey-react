@@ -100,7 +100,7 @@
   },
   "scripts": {
     "unit": "cross-env NODE_ENV=test nyc mocha --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
-    "unit:win": "cross-env NODE_ENV=test nyc mocha --reporter mocha-appveyor-reporter --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
+    "unit:win": "cross-env NODE_ENV=test mocha --reporter mocha-appveyor-reporter --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
     "report-coverage": "nyc report --reporter=lcov && codecov",
     "lint": "eslint ./**/*.js --quiet",
     "test": "npm run lint && npm run unit",
