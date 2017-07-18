@@ -1,5 +1,16 @@
 # Airtame Gooey React CHANGELOG
 
+## v0.4.1
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.0...v0.4.1)
+
+- Added utils file with shared functions
+- Updated data checks in RadioGrouop's `componentWillReceiveProps`
+- Updated options checks in Select's `componentWillReceiveProps`
+- Added more robust tests to validater these implementations
+- Cleaned AppVeyor's reporting command
+- Updated Select's documentation
+
 ## v0.4.0
 
 [Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.3.0...v0.4.0)
