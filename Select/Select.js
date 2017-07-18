@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { shallowCompareOptionsArray } from '../_utils';
 
 /**
  * Select component. Renders a select element handles its behavior
@@ -119,7 +120,8 @@ export default class Select extends Component {
    */
   componentWillReceiveProps(nextProps) {
     const { selected, options } = this.props;
-    if ((selected !== nextProps.selected) || (options !== nextProps.options)) {
+    const nextOpts = nextProps.options;
+    if ((selected !== nextProps.selected) || !shallowCompareOptionsArray(options, nextOpts)) {
       this.setState({
         selected: this.getDefaultSelected(nextProps.options, nextProps.selected),
       });

@@ -88,13 +88,26 @@ describe('<Select />', () => {
   });
 
 
-  it('should set the proper state if valid props are updated', () => {
+  it('should set the proper state if the selected prop is updated', () => {
     const wrapper = shallow(
       <Select options={options} selected="zapdos" />
     );
     expect(wrapper.state('selected')).to.eql('Zapdos');
     wrapper.setProps({ selected: 'articuno' })
     expect(wrapper.state('selected')).to.eql('Articuno');
+  });
+
+  it('should set the proper state if the options prop is updated', () => {
+    const newOptions = [
+      { id: 'a', label: 'a', value: 'a' },
+      { id: 'b', label: 'b', value: 'b' },
+    ];
+
+    const wrapper = shallow(<Select options={options} />);
+    expect(wrapper.state('selected')).to.eql('Articuno');
+
+    wrapper.setProps({ options: newOptions })
+    expect(wrapper.state('selected')).to.eql('a');
   });
 
   it('should not touch the state if invalid props change', () => {
@@ -105,5 +118,32 @@ describe('<Select />', () => {
     expect(stateSpy.callCount).to.eql(0);
     wrapper.setProps({ isError: true });
     expect(stateSpy.callCount).to.eql(0);
+  });
+
+  it('should not touch the state if the options prop doesnt change', () => {
+     const newOptions = [
+      {
+        id: 'articuno',
+        label: 'Articuno',
+        value: 'Articuno'
+      },
+      {
+        id: 'zapdos',
+        label: 'El Zapdos',
+        value: 'Zapdos'
+      },
+      {
+        id: 'moltres',
+        label: 'Moltres',
+        value: 'Moltres',
+        isDisabled: true,
+      }
+    ];
+    const wrapper = shallow(
+      <Select options={options} selected="zapdos" />
+    );
+    expect(wrapper.state('selected')).to.eql('Zapdos');
+    wrapper.setProps({ options: newOptions })
+    expect(wrapper.state('selected')).to.eql('Zapdos');
   });
 });
