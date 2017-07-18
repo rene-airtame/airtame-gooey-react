@@ -191,7 +191,7 @@ describe('<RadioGroup />', () => {
     expect(focusCallback).to.have.property('callCount', 1);
   });
 
-  it('should set the proper state if valid props are updated', () => {
+  it('should set the proper state if the active prop is updated', () => {
     const radios = [{
       id: 'foo',
       label: 'Foo',
@@ -207,6 +207,34 @@ describe('<RadioGroup />', () => {
     expect(wrapper.state('active')).to.eql('foo');
     wrapper.setProps({ active: 'bar' })
     expect(wrapper.state('active')).to.eql('bar');
+  });
+
+  it('should set the proper state if the data prop is updated', () => {
+    const radios = [{
+      id: 'foo',
+      label: 'Foo',
+      value: 'foo',
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
+    }];
+
+    const radios2 = [{
+      id: 'foo2',
+      label: 'Foo2',
+      value: 'foo2',
+    }, {
+      id: 'bar2',
+      label: 'Bar2',
+      value: 'bar2',
+    }];
+    const wrapper = shallow(
+      <RadioGroup name="test-radio" data={radios} />
+    );
+    expect(wrapper.state('active')).to.eql('foo');
+    wrapper.setProps({ data: radios2 })
+    expect(wrapper.state('active')).to.eql('foo2');
   });
 
   it('should not touch the state if invalid props change', () => {
@@ -226,6 +254,34 @@ describe('<RadioGroup />', () => {
     expect(stateSpy.callCount).to.eql(0);
     wrapper.setProps({ name: 'updated-name' });
     expect(stateSpy.callCount).to.eql(0);
+  });
+
+  it('should not touch the state if the data prop doesnt change', () => {
+    const radios = [{
+      id: 'foo',
+      label: 'Foo',
+      value: 'foo',
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
+    }];
+
+    const radios2 = [{
+      id: 'foo',
+      label: 'Foo',
+      value: 'foo',
+    }, {
+      id: 'bar',
+      label: 'Bar',
+      value: 'bar',
+    }];
+    const wrapper = shallow(
+      <RadioGroup name="test-radio" data={radios} active="bar" />
+    );
+    expect(wrapper.state('active')).to.eql('bar');
+    wrapper.setProps({ data: radios2 })
+    expect(wrapper.state('active')).to.eql('bar');
   });
 
 });

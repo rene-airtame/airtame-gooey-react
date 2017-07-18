@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
+import { shallowCompareOptionsArray } from '../_utils';
 
 /**
  * RadioGroup component
@@ -97,7 +98,7 @@ export default class RadioGroup extends Component {
    */
   componentWillReceiveProps(nextProps) {
     const { data, active } = this.props;
-    if ((data !== nextProps.data) || (active !== nextProps.active)) {
+    if (!shallowCompareOptionsArray(data, nextProps.data) || (active !== nextProps.active)) {
       this.setState({
         active: this.getDefaultActive(nextProps.data, nextProps.active),
       });
