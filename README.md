@@ -6,6 +6,10 @@
   <a href="https://codecov.io/gh/airtame/airtame-gooey-react" target="_blank">
     <img src="https://img.shields.io/codecov/c/github/airtame/airtame-gooey-react.svg" alt="Codecov" />
   </a>
+  <a href="https://ci.appveyor.com/project/mmellado/airtame-gooey" target="_blank">
+    <img src="https://img.shields.io/appveyor/ci/mmellado/airtame-gooey-react.svg" alt="AppVeyor status">
+  </a>
+  <img src="https://img.shields.io/david/airtame/airtame-gooey-react.svg" alt="Dependencies status" />
 </div>
 
 
