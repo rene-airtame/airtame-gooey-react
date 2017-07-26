@@ -1,5 +1,12 @@
 # Airtame Gooey React CHANGELOG
 
+## v0.4.2
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.1...v0.4.2)
+
+- Updated the TextArea component to play better with `airtame-gooey`'s mixin
+  - Error span is always present now when `isError` prop is passed, even if no `errorMessage` is passed.
+
 ## v0.4.1
 
 [Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.0...v0.4.1)
