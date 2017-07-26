@@ -194,6 +194,8 @@ export default class TextArea extends Component {
       textAreaRef,
     } = this.props;
 
+    const { isMaxLengthExceeded } = this.state;
+
     const textAreaClassNames = classNames(
       'gooey-text-area',
       {
@@ -203,6 +205,8 @@ export default class TextArea extends Component {
       },
       className
     );
+
+    const displayedErrorMsg = isMaxLengthExceeded ? this.maxLengthError : errorMessage;
 
     const props = this.getProps();
 
@@ -218,19 +222,13 @@ export default class TextArea extends Component {
           {...props}
         />
         {
-        (isError && errorMessage.length || this.state.isMaxLengthExceeded)
-          ?
-            <span className="gooey-text-area__error-message">
-              {
-                this.state.isMaxLengthExceeded
-                ?
-                  this.maxLengthError
-                :
-                  errorMessage
-              }
-            </span>
-          :
-            null
+        isError || isMaxLengthExceeded
+        ?
+          <span className="gooey-text-area__error-message gooey-text-area__error-icon">
+            {displayedErrorMsg}
+          </span>
+        :
+          null
         }
       </div>
     );

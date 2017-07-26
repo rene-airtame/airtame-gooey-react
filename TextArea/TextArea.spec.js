@@ -37,9 +37,9 @@ describe('<TextArea />', () => {
     expect(wrapper.find('.gooey-text-area__error-message')).to.have.length(0);
   });
 
-  it('should not render an error message container if no error message is passed', () => {
+  it('should show an error icon even if no error message was passed', () => {
     const wrapper = render(<TextArea isError />);
-    expect(wrapper.find('.gooey-text-area__error-message')).to.have.length(0);
+    expect(wrapper.find('.gooey-text-area__error-icon')).to.have.length(1);
   });
 
   it('should add a placeholder text if requested', () => {
