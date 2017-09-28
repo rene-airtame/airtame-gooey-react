@@ -36,10 +36,7 @@ export default class Select extends Component {
          * The value for the select field
          * @type {string|number}
          */
-        value: PropTypes.oneOfType([
-          PropTypes.number,
-          PropTypes.string,
-        ]).isRequired,
+        value: PropTypes.oneOfType([PropTypes.number, PropTypes.string]).isRequired,
         /**
          * Flag indicating if a the specific option is disabled
          */
@@ -50,10 +47,7 @@ export default class Select extends Component {
      * ID for the default selected option.
      * @type {string|number}
      */
-    selected: PropTypes.oneOfType([
-      PropTypes.number,
-      PropTypes.string,
-    ]),
+    selected: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     /**
      * Flag indicating if the select is in a disabled state
      * @type {boolean}
@@ -72,18 +66,12 @@ export default class Select extends Component {
      * ref for the select element
      * @type {function | string}
      */
-    selectRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.string,
-    ]),
+    selectRef: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     /**
      * Class name for the component
      * @type {string | Array}
      */
-    className: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     /**
      * The id for the select. This should only be used if the field will be associated with a label
      * @type {string}
@@ -121,7 +109,7 @@ export default class Select extends Component {
   componentWillReceiveProps(nextProps) {
     const { selected, options } = this.props;
     const nextOpts = nextProps.options;
-    if ((selected !== nextProps.selected) || !shallowCompareOptionsArray(options, nextOpts)) {
+    if (selected !== nextProps.selected || !shallowCompareOptionsArray(options, nextOpts)) {
       this.setState({
         selected: this.getDefaultSelected(nextProps.options, nextProps.selected),
       });
@@ -146,7 +134,7 @@ export default class Select extends Component {
     });
 
     return options[selectedIndex].value;
-  }
+  };
 
   /**
    * Updates the state with the currently selected option
@@ -154,14 +142,17 @@ export default class Select extends Component {
    */
   updateSelected = evt => {
     evt.persist();
-    this.setState({
-      selected: evt.target.value,
-    }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(evt);
+    this.setState(
+      {
+        selected: evt.target.value,
+      },
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(evt);
+        }
       }
-    });
-  }
+    );
+  };
 
   /**
    * Sanitizes the component props by removing all custom props so the rest can be assigned to the
@@ -181,20 +172,14 @@ export default class Select extends Component {
     delete props.onChange;
 
     return props;
-  }
+  };
 
   /**
    * The render method for the component
    * @return {JSX} The component's markup
    */
   render() {
-    const {
-      className,
-      isDisabled,
-      isError,
-      options,
-      selectRef,
-    } = this.props;
+    const { className, isDisabled, isError, options, selectRef } = this.props;
 
     const componentClassNames = classNames(
       'gooey-select',
@@ -217,22 +202,19 @@ export default class Select extends Component {
           ref={selectRef}
           {...props}
         >
-          {
-            options.map(option => (
-              <option
-                key={option.id}
-                disabled={option.isDisabled || null}
-                value={option.value}
-                label={option.label}
-                className="gooey-select__option"
-              >
-                {option.label}
-              </option>
-            ))
-          }
+          {options.map(option => (
+            <option
+              key={option.id}
+              disabled={option.isDisabled || null}
+              value={option.value}
+              label={option.label}
+              className="gooey-select__option"
+            >
+              {option.label}
+            </option>
+          ))}
         </select>
       </div>
     );
   }
 }
-

@@ -27,14 +27,14 @@ describe('<Button />', () => {
   it('should trigger the onClick callback when clicked', () => {
     const clickCallback = spy();
     const wrapper = shallow(<Button onClick={clickCallback} />);
-    wrapper.find('button').simulate('click')
+    wrapper.find('button').simulate('click');
     expect(clickCallback).toHaveProperty('callCount', 1);
   });
 
   it('should propagate additional valid props to the button element', () => {
     const focusCallback = spy();
     const wrapper = shallow(<Button onFocus={focusCallback} />);
-    wrapper.find('button').simulate('focus')
+    wrapper.find('button').simulate('focus');
     expect(focusCallback).toHaveProperty('callCount', 1);
   });
 });

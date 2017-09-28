@@ -5,23 +5,17 @@ import Switch from './Switch';
 
 describe('<Switch />', () => {
   it('should render the switch', () => {
-    const wrapper = shallow(
-      <Switch id="test-siwtch" label="test-switch" value="foo" />
-    );
+    const wrapper = shallow(<Switch id="test-siwtch" label="test-switch" value="foo" />);
     expect(wrapper).toMatchSelector('Checkbox');
   });
 
   it('should render a Checkbox component', () => {
-    const wrapper = shallow(
-      <Switch id="test-siwtch" label="test-switch" value="foo" />
-    );
+    const wrapper = shallow(<Switch id="test-siwtch" label="test-switch" value="foo" />);
     expect(wrapper.name()).toBe('Checkbox');
   });
 
   it('should properly translate the isOn prop', () => {
-    const wrapper = render(
-      <Switch id="test-siwtch" label="test-switch" value="foo" isOn />
-    );
+    const wrapper = render(<Switch id="test-siwtch" label="test-switch" value="foo" isOn />);
     expect(wrapper.find('input')[0].attribs.checked).toEqual('');
   });
 
@@ -38,7 +32,7 @@ describe('<Switch />', () => {
     const wrapper = mount(
       <Switch id="test-siwtch" label="test-switch" value="foo" onFocus={focusCallback} />
     );
-    wrapper.find('input').simulate('focus')
+    wrapper.find('input').simulate('focus');
     expect(focusCallback).toHaveProperty('callCount', 1);
   });
 });

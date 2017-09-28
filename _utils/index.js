@@ -3,7 +3,7 @@
  * functions needed by components in this library to work properly.
  */
 
- /**
+/**
   * Makes a shallow comparisson between 2 arrays containing plain objects. Returns true if the
   * shallow comparisson between the objects in the array is true. This also evaluates that they are
   * in the same order in the array

@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 import Checkbox from '../Checkbox';
@@ -55,18 +55,12 @@ export default class Switch extends Component {
      * ref for the input element
      * @type {function | string}
      */
-    inputRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.string,
-    ]),
+    inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     /**
      * Class name for the component
      * @type {string | Array}
      */
-    className: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   };
 
   /**
@@ -91,18 +85,14 @@ export default class Switch extends Component {
     delete props.isOn;
 
     return props;
-  }
+  };
 
   /**
    * Builds the component's markup
    * @return {JSX}  The markup to be rendered
    */
   render() {
-    const {
-      isDisabled,
-      isOn,
-      className,
-    } = this.props;
+    const { isDisabled, isOn, className } = this.props;
 
     const switchClassNames = classNames(
       'gooey-switch',
@@ -115,13 +105,6 @@ export default class Switch extends Component {
 
     const props = this.getProps();
 
-    return (
-      <Checkbox
-        className={switchClassNames}
-        isChecked={isOn}
-        {...props}
-      />
-    );
+    return <Checkbox className={switchClassNames} isChecked={isOn} {...props} />;
   }
 }
-

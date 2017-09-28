@@ -10,7 +10,6 @@ import classNames from 'classnames';
  * @extends {Component}
  */
 export default class Checkbox extends Component {
-
   /**
    * List of possible props
    * @type {Object}
@@ -55,18 +54,12 @@ export default class Checkbox extends Component {
      * ref for the input element
      * @type {function | string}
      */
-    inputRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.string,
-    ]),
+    inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     /**
      * Class name for the component
      * @type {string | Array}
      */
-    className: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   };
 
   /**
@@ -105,14 +98,17 @@ export default class Checkbox extends Component {
    */
   toggleChecked = evt => {
     evt.persist();
-    this.setState({
-      checked: !this.state.checked,
-    }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(evt);
+    this.setState(
+      {
+        checked: !this.state.checked,
+      },
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(evt);
+        }
       }
-    });
-  }
+    );
+  };
 
   /**
    * Sanitizes the component props by removing all custom props so the rest can be assigned to the
@@ -131,7 +127,7 @@ export default class Checkbox extends Component {
     delete props.onChange;
 
     return props;
-  }
+  };
 
   /**
    * Builds the component's markup
@@ -163,10 +159,7 @@ export default class Checkbox extends Component {
           }}
           {...props}
         />
-        <label
-          htmlFor={id}
-          className="gooey-checkbox__label"
-        >
+        <label htmlFor={id} className="gooey-checkbox__label">
           {label}
         </label>
       </div>

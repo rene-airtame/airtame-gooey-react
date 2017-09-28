@@ -58,24 +58,18 @@ export default class TextArea extends Component {
      * ref for the textarea element
      * @type {function | string}
      */
-    textAreaRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.string,
-    ]),
+    textAreaRef: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     /**
      * Class name for the component
      * @type {string | Array}
      */
-    className: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     /**
      * The id for the field. This should only be used if the field will be associated with a label
      * @type {string}
      */
     id: PropTypes.string,
-  }
+  };
 
   /**
    * Default prop values
@@ -95,8 +89,9 @@ export default class TextArea extends Component {
   /**
    * Error message for maxContentLength exceeded
    */
-  maxLengthError = this.props.maxContentLength ?
-    `Value can not be longer than ${this.props.maxContentLength} characters.` : '';
+  maxLengthError = this.props.maxContentLength
+    ? `Value can not be longer than ${this.props.maxContentLength} characters.`
+    : '';
 
   /**
    * Component's initial state
@@ -125,13 +120,16 @@ export default class TextArea extends Component {
    */
   handleInputValue = e => {
     e.persist();
-    this.setState({
-      textAreaValue: e.target.value,
-      isMaxLengthExceeded: false,
-    }, () => {
-      this.attemptOnChangeCallback(e);
-    });
-  }
+    this.setState(
+      {
+        textAreaValue: e.target.value,
+        isMaxLengthExceeded: false,
+      },
+      () => {
+        this.attemptOnChangeCallback(e);
+      }
+    );
+  };
 
   /**
    * Attempts to trigger the onChange callback function
@@ -141,19 +139,22 @@ export default class TextArea extends Component {
   attemptOnChangeCallback = e => {
     const { maxContentLength } = this.props;
     if (maxContentLength && this.state.textAreaValue.length > maxContentLength) {
-      this.setState({
-        isMaxLengthExceeded: true,
-      }, () => {
-        if (this.props.onChange) {
-          this.props.onChange(e, new Error(this.maxLengthError));
+      this.setState(
+        {
+          isMaxLengthExceeded: true,
+        },
+        () => {
+          if (this.props.onChange) {
+            this.props.onChange(e, new Error(this.maxLengthError));
+          }
         }
-      });
+      );
     } else {
       if (this.props.onChange) {
         this.props.onChange(e);
       }
     }
-  }
+  };
 
   /**
    * Sanitizes the component props by removing all custom props so the rest can be assigned to the
@@ -176,7 +177,7 @@ export default class TextArea extends Component {
     delete props.textAreaRef;
 
     return props;
-  }
+  };
 
   /**
    * The render method.
@@ -185,14 +186,7 @@ export default class TextArea extends Component {
    * @return {JSX} The markup to be rendered
    */
   render() {
-    const {
-      isDisabled,
-      isError,
-      isReadOnly,
-      className,
-      errorMessage,
-      textAreaRef,
-    } = this.props;
+    const { isDisabled, isError, isReadOnly, className, errorMessage, textAreaRef } = this.props;
 
     const { isMaxLengthExceeded } = this.state;
 
@@ -221,15 +215,11 @@ export default class TextArea extends Component {
           ref={textAreaRef}
           {...props}
         />
-        {
-        isError || isMaxLengthExceeded
-        ?
+        {isError || isMaxLengthExceeded ? (
           <span className="gooey-text-area__error-message gooey-text-area__error-icon">
             {displayedErrorMsg}
           </span>
-        :
-          null
-        }
+        ) : null}
       </div>
     );
   }

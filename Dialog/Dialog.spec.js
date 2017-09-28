@@ -5,25 +5,19 @@ import Dialog from './Dialog';
 describe('<Dialog />', () => {
   it('should render the dialog', () => {
     const wrapper = shallow(
-      <Dialog
-        isOpen
-        onCancel={e => false}
-        onConfirm={e => false}
-      >
+      <Dialog isOpen onCancel={e => false} onConfirm={e => false}>
         content
-      </Dialog>);
+      </Dialog>
+    );
     expect(wrapper).toMatchSelector('Modal');
   });
 
   it('should not render anything when closed', () => {
     const wrapper = shallow(
-      <Dialog
-        isOpen={false}
-        onCancel={e => false}
-        onConfirm={e => false}
-      >
+      <Dialog isOpen={false} onCancel={e => false} onConfirm={e => false}>
         content
-      </Dialog>);
+      </Dialog>
+    );
     expect(wrapper.html()).toHaveLength(0);
   });
 
@@ -34,13 +28,10 @@ describe('<Dialog />', () => {
     };
 
     const wrapper = mount(
-      <Dialog
-        isOpen
-        onCancel={toggle}
-        onConfirm={e => false}
-      >
+      <Dialog isOpen onCancel={toggle} onConfirm={e => false}>
         content
-      </Dialog>);
+      </Dialog>
+    );
     wrapper.find('.gooey-dialog__action--cancel').simulate('click');
     expect(open).toEqual(false);
   });
@@ -52,63 +43,51 @@ describe('<Dialog />', () => {
     };
 
     const wrapper = mount(
-      <Dialog
-        isOpen
-        onCancel={e => false}
-        onConfirm={toggle}
-      >
+      <Dialog isOpen onCancel={e => false} onConfirm={toggle}>
         content
-      </Dialog>);
+      </Dialog>
+    );
     wrapper.find('.gooey-dialog__action--confirm').simulate('click');
     expect(open).toEqual(false);
   });
 
   it('should open and close when the isOpen prop changes', () => {
     const wrapper = shallow(
-      <Dialog
-        isOpen
-        onCancel={e => false}
-        onConfirm={e => false}
-      >
+      <Dialog isOpen onCancel={e => false} onConfirm={e => false}>
         content
-      </Dialog>);
+      </Dialog>
+    );
 
-    wrapper.setProps({isOpen: false});
+    wrapper.setProps({ isOpen: false });
     expect(wrapper.html()).toHaveLength(0);
 
-    wrapper.setProps({isOpen: true});
+    wrapper.setProps({ isOpen: true });
     expect(wrapper.html().length).toBeGreaterThan(0);
   });
 
   it('should set the right text on the confirm button', () => {
     const wrapper = shallow(
-      <Dialog
-        isOpen
-        onCancel={e => false}
-        onConfirm={e => false}
-      >
+      <Dialog isOpen onCancel={e => false} onConfirm={e => false}>
         content
-      </Dialog>);
+      </Dialog>
+    );
 
     expect(wrapper.find('.gooey-dialog__action--confirm').text()).toBe('Confirm');
 
-    wrapper.setProps({confirmButtonText: 'Test'});
+    wrapper.setProps({ confirmButtonText: 'Test' });
     expect(wrapper.find('.gooey-dialog__action--confirm').text()).toBe('Test');
   });
 
   it('should set the right text on the cancel button', () => {
     const wrapper = shallow(
-      <Dialog
-        isOpen
-        onCancel={e => false}
-        onConfirm={e => false}
-      >
+      <Dialog isOpen onCancel={e => false} onConfirm={e => false}>
         content
-      </Dialog>);
+      </Dialog>
+    );
 
     expect(wrapper.find('.gooey-dialog__action--cancel').text()).toBe('Cancel');
 
-    wrapper.setProps({cancelButtonText: 'Test'});
+    wrapper.setProps({ cancelButtonText: 'Test' });
     expect(wrapper.find('.gooey-dialog__action--cancel').text()).toBe('Test');
   });
 });

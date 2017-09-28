@@ -85,7 +85,7 @@ describe('<TextField />', () => {
   it('should show an error message when the maxContentLength is exceeded', () => {
     const wrapper = shallow(<TextField maxContentLength={3} />);
     wrapper.find('input').simulate('change', {
-      target: {value: 'My new value'},
+      target: { value: 'My new value' },
       persist: () => {},
     });
     expect(wrapper.find('.gooey-text-field__error-message')).toHaveLength(1);
@@ -96,7 +96,7 @@ describe('<TextField />', () => {
     const onChangeCallback = spy();
     const wrapper = shallow(<TextField onChange={onChangeCallback} maxContentLength={3} />);
     wrapper.find('input').simulate('change', {
-      target: {value: 'My new value'},
+      target: { value: 'My new value' },
       persist: () => {},
     });
     expect(onChangeCallback.args[0][1].name).toBe('Error');
@@ -106,7 +106,7 @@ describe('<TextField />', () => {
     const onChangeCallback = spy();
     const wrapper = shallow(<TextField onChange={onChangeCallback} />);
     wrapper.find('input').simulate('change', {
-      target: {value: 'a'},
+      target: { value: 'a' },
       persist: () => {},
     });
     expect(onChangeCallback).toHaveProperty('callCount', 1);
@@ -116,7 +116,7 @@ describe('<TextField />', () => {
     const onChangeCallback = spy();
     const wrapper = shallow(<TextField />);
     wrapper.find('input').simulate('change', {
-      target: {value: 'a'},
+      target: { value: 'a' },
       persist: () => {},
     });
     expect(onChangeCallback).toHaveProperty('callCount', 0);
@@ -130,14 +130,14 @@ describe('<TextField />', () => {
   it('should propagate additional valid props to the input element', () => {
     const focusCallback = spy();
     const wrapper = shallow(<TextField onFocus={focusCallback} />);
-    wrapper.find('input').simulate('focus')
+    wrapper.find('input').simulate('focus');
     expect(focusCallback).toHaveProperty('callCount', 1);
   });
 
   it('should set the proper value state if the prop is updated', () => {
     const wrapper = shallow(<TextField value="foo" />);
     expect(wrapper.state('textFieldValue')).toEqual('foo');
-    wrapper.setProps({ value: 'bar' })
+    wrapper.setProps({ value: 'bar' });
     expect(wrapper.state('textFieldValue')).toEqual('bar');
   });
 

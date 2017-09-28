@@ -9,23 +9,19 @@ import classNames from 'classnames';
  */
 function getStyles(isCollapsed) {
   return isCollapsed
-  ?
-  {
-    height: 0,
-    overflow: 'hidden',
-  }
-  :
-  {
-    height: 'auto',
-  };
+    ? {
+        height: 0,
+        overflow: 'hidden',
+      }
+    : {
+        height: 'auto',
+      };
 }
-
 
 /**
  * Collapser component to show/hide content as required
  */
 export default class Collapser extends Component {
-
   /**
    * List of possible props
    * @type {Object}
@@ -45,10 +41,7 @@ export default class Collapser extends Component {
      * Class name for the component
      * @type {string | Array}
      */
-    className: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   };
 
   /**
@@ -84,7 +77,7 @@ export default class Collapser extends Component {
     this.setState({
       collapsed: !this.state.collapsed,
     });
-  }
+  };
 
   /**
    * Builds the component's markup
@@ -93,41 +86,23 @@ export default class Collapser extends Component {
   render() {
     const collapserClassNames = classNames('gooey-collapser', this.props.className);
 
-    const buttonClassNames = classNames(
-      'gooey-collapser__buton',
-      {'gooey-collapser__buton--expanded': !this.state.collapsed});
+    const buttonClassNames = classNames('gooey-collapser__buton', {
+      'gooey-collapser__buton--expanded': !this.state.collapsed,
+    });
 
-    const contentClassNames = classNames(
-      'gooey-collapser__container',
-      {'gooey-collapser__container--expanded': !this.state.collapsed});
+    const contentClassNames = classNames('gooey-collapser__container', {
+      'gooey-collapser__container--expanded': !this.state.collapsed,
+    });
 
     const styles = getStyles(this.state.collapsed);
 
     return (
       <div className={collapserClassNames}>
-        {
-          this.props.title
-          ?
-          <h2>{this.props.title}</h2>
-          :
-          null
-        }
-        <button
-          onClick={this.handleCollapserButtonClick}
-          className={buttonClassNames}
-        >
-        {
-          this.state.collapsed
-          ?
-          'Expand'
-          :
-          'Collapse'
-        }
+        {this.props.title ? <h2>{this.props.title}</h2> : null}
+        <button onClick={this.handleCollapserButtonClick} className={buttonClassNames}>
+          {this.state.collapsed ? 'Expand' : 'Collapse'}
         </button>
-        <div
-          className={contentClassNames}
-          style={styles}
-        >
+        <div className={contentClassNames} style={styles}>
           {this.props.children}
         </div>
       </div>

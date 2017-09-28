@@ -52,7 +52,7 @@ describe('<TextArea />', () => {
   it('should show an error message when the maxContentLength is exceeded', () => {
     const wrapper = shallow(<TextArea maxContentLength={3} />);
     wrapper.find('textarea').simulate('change', {
-      target: {value: 'My new value'},
+      target: { value: 'My new value' },
       persist: () => {},
     });
     expect(wrapper.find('.gooey-text-area__error-message')).toHaveLength(1);
@@ -63,7 +63,7 @@ describe('<TextArea />', () => {
     const onChangeCallback = spy();
     const wrapper = shallow(<TextArea onChange={onChangeCallback} maxContentLength={3} />);
     wrapper.find('textarea').simulate('change', {
-      target: {value: 'My new value'},
+      target: { value: 'My new value' },
       persist: () => {},
     });
     expect(onChangeCallback.args[0][1].name).toBe('Error');
@@ -73,7 +73,7 @@ describe('<TextArea />', () => {
     const onChangeCallback = spy();
     const wrapper = shallow(<TextArea onChange={onChangeCallback} />);
     wrapper.find('textarea').simulate('change', {
-      target: {value: 'a'},
+      target: { value: 'a' },
       persist: () => {},
     });
     expect(onChangeCallback).toHaveProperty('callCount', 1);
@@ -83,7 +83,7 @@ describe('<TextArea />', () => {
     const onChangeCallback = spy();
     const wrapper = shallow(<TextArea />);
     wrapper.find('textarea').simulate('change', {
-      target: {value: 'a'},
+      target: { value: 'a' },
       persist: () => {},
     });
     expect(onChangeCallback).toHaveProperty('callCount', 0);
@@ -97,14 +97,14 @@ describe('<TextArea />', () => {
   it('should propagate additional valid props to the textarea element', () => {
     const focusCallback = spy();
     const wrapper = shallow(<TextArea onFocus={focusCallback} />);
-    wrapper.find('textarea').simulate('focus')
+    wrapper.find('textarea').simulate('focus');
     expect(focusCallback).toHaveProperty('callCount', 1);
   });
 
   it('should set the proper value state if the prop is updated', () => {
     const wrapper = shallow(<TextArea value="foo" />);
     expect(wrapper.state('textAreaValue')).toEqual('foo');
-    wrapper.setProps({ value: 'bar' })
+    wrapper.setProps({ value: 'bar' });
     expect(wrapper.state('textAreaValue')).toEqual('bar');
   });
 

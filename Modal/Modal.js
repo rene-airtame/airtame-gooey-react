@@ -10,10 +10,7 @@ import classNames from 'classnames';
  * @return {JSX}     The markup to be rendered
  */
 export default function Modal(props) {
-  const modalClassNames = classNames(
-    'gooey-modal',
-    props.className,
-  );
+  const modalClassNames = classNames('gooey-modal', props.className);
 
   const modalStyles = {
     height: '100vh',
@@ -30,38 +27,24 @@ export default function Modal(props) {
     transform: 'translate(-50%, -50%)',
   };
 
-
-  return props.isOpen
-  ?
-    (
+  return props.isOpen ? (
+    <div
+      className={modalClassNames}
+      style={modalStyles}
+      onClick={!props.disableOverlayClose ? props.onClose : null}
+    >
       <div
-        className={modalClassNames}
-        style={modalStyles}
-        onClick={
-          !props.disableOverlayClose
-          ?
-            props.onClose
-          :
-            null
-        }
+        className="gooey-modal__content"
+        style={modalContentStyles}
+        onClick={e => e.stopPropagation()}
       >
-        <div
-          className="gooey-modal__content"
-          style={modalContentStyles}
-          onClick={e => e.stopPropagation()}
-        >
-          <button
-            className="gooey-modal__close"
-            onClick={props.onClose}
-          >
-            Close
-          </button>
-          {props.children}
-        </div>
+        <button className="gooey-modal__close" onClick={props.onClose}>
+          Close
+        </button>
+        {props.children}
       </div>
-      )
-  :
-    null;
+    </div>
+  ) : null;
 }
 
 /**
@@ -88,8 +71,5 @@ Modal.propTypes = {
    * Class name for the component
    * @type {string | Array}
    */
-  className: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 };

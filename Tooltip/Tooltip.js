@@ -19,23 +19,17 @@ export default class Tooltip extends Component {
      * The content for the tooltip for the tooltip
      * @type {string}
      */
-    content: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.element,
-    ]).isRequired,
+    content: PropTypes.oneOfType([PropTypes.string, PropTypes.element]).isRequired,
     /**
      * Class name for the component
      * @type {string | Array}
      */
-    className: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
-  }
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
+  };
 
   state = {
     isOpen: false,
-  }
+  };
 
   /**
    * Updates the component state to open the tooltip bubble
@@ -44,7 +38,7 @@ export default class Tooltip extends Component {
     this.setState({
       isOpen: !this.state.isOpen,
     });
-  }
+  };
 
   /**
    * Builds the component's markup
@@ -53,10 +47,7 @@ export default class Tooltip extends Component {
   render() {
     const isOpen = this.state.isOpen ? 1 : 0;
 
-    const tooltipClassnames = classNames(
-      'gooey-tooltip',
-      this.props.className,
-    );
+    const tooltipClassnames = classNames('gooey-tooltip', this.props.className);
 
     const toopltipStyles = {
       display: 'inline-block',
@@ -79,16 +70,10 @@ export default class Tooltip extends Component {
         onMouseLeave={this.handleTooltipHover}
         style={toopltipStyles}
       >
-        <span
-          className="gooey-tooltip__title"
-          style={titleStyles}
-        >
+        <span className="gooey-tooltip__title" style={titleStyles}>
           {this.props.children}
         </span>
-        <div
-          className="gooey-tooltip__bubble"
-          style={bubbleStyles}
-        >
+        <div className="gooey-tooltip__bubble" style={bubbleStyles}>
           {this.props.content}
         </div>
       </div>

@@ -1,8 +1,4 @@
-import {
-  shallowObjectCompare,
-  shallowCompareOptionsArray,
-  isPlainObject,
-} from './index.js';
+import { shallowObjectCompare, shallowCompareOptionsArray, isPlainObject } from './index.js';
 
 describe('_utils/shallowObjectCompare', () => {
   it('should return false when objects have different length', () => {
@@ -32,7 +28,6 @@ describe('_utils/shallowObjectCompare', () => {
 
     expect(shallowObjectCompare(obj1, obj2)).toEqual(true);
   });
-
 
   it('should return false if any of the parameters is not an object', () => {
     const obj1 = { a: 1, b: 2 };
@@ -91,11 +86,11 @@ describe('_utils/isPlainObject', () => {
   });
 
   it('should return false for a function', () => {
-    expect(isPlainObject(function () { return 5;})).toEqual(false);
+    expect(isPlainObject(() => 5)).toEqual(false);
   });
 
   it('should return false for a function returning an object', () => {
-    expect(isPlainObject(function () { return { a: 1, b: 2 } })).toEqual(false);
+    expect(isPlainObject(() => ({ a: 1, b: 2 }))).toEqual(false);
   });
 
   it('should return false for a string', () => {

@@ -5,16 +5,12 @@ import Checkbox from './Checkbox';
 
 describe('<Checkbox />', () => {
   it('should render the checkbox', () => {
-    const wrapper = shallow(
-      <Checkbox id="test-checkbox" label="test-checkbox" value="foo" />
-    );
+    const wrapper = shallow(<Checkbox id="test-checkbox" label="test-checkbox" value="foo" />);
     expect(wrapper).toHaveTagName('div');
   });
 
   it('should not be checked by default', () => {
-    const wrapper = render(
-      <Checkbox id="test-checkbox" label="test-checkbox" value="foo" />
-    );
+    const wrapper = render(<Checkbox id="test-checkbox" label="test-checkbox" value="foo" />);
     expect(wrapper.find('input')[0].attribs.checked).toEqual(undefined);
   });
 
@@ -33,16 +29,12 @@ describe('<Checkbox />', () => {
   });
 
   it('should not set the name attribute without a prop', () => {
-    const wrapper = render(
-      <Checkbox id="text-checkbox" label="test checkbox" value="foo" />
-    );
+    const wrapper = render(<Checkbox id="text-checkbox" label="test checkbox" value="foo" />);
     expect(wrapper.find('input')[0].attribs.name).toEqual(undefined);
   });
 
   it('should set the value prop properly', () => {
-    const wrapper = render(
-      <Checkbox id="text-checkbox" label="test checkbox" value="foo" />
-    );
+    const wrapper = render(<Checkbox id="text-checkbox" label="test checkbox" value="foo" />);
     expect(wrapper.find('input')[0].attribs.value).toEqual('foo');
   });
 
@@ -54,9 +46,7 @@ describe('<Checkbox />', () => {
   });
 
   it('should toggle on when unchecked and pressed', () => {
-    const wrapper = shallow(
-      <Checkbox id="test-checkbox" label="test-checkbox" value="foo" />
-    );
+    const wrapper = shallow(<Checkbox id="test-checkbox" label="test-checkbox" value="foo" />);
     expect(wrapper.state('checked')).toEqual(false);
     wrapper.find('input').simulate('change', {
       target: { checked: true },
@@ -78,9 +68,7 @@ describe('<Checkbox />', () => {
   });
 
   it('should have a linked input and label', () => {
-    const wrapper = render(
-      <Checkbox id="test-checkbox" label="test-checkbox" value="foo" />
-    );
+    const wrapper = render(<Checkbox id="test-checkbox" label="test-checkbox" value="foo" />);
     const inputId = wrapper.find('input')[0].attribs.id;
     const labelFor = wrapper.find('label')[0].attribs.for;
     expect(inputId).toEqual(labelFor);
@@ -111,7 +99,7 @@ describe('<Checkbox />', () => {
     const wrapper = shallow(
       <Checkbox id="test-checkbox" label="test-checkbox" value="foo" onFocus={focusCallback} />
     );
-    wrapper.find('input').simulate('focus')
+    wrapper.find('input').simulate('focus');
     expect(focusCallback).toHaveProperty('callCount', 1);
   });
 
@@ -120,7 +108,7 @@ describe('<Checkbox />', () => {
       <Checkbox id="test-checkbox" label="test-checkbox" value="foo" isChecked />
     );
     expect(wrapper.state('checked')).toEqual(true);
-    wrapper.setProps({ isChecked: false })
+    wrapper.setProps({ isChecked: false });
     expect(wrapper.state('checked')).toEqual(false);
   });
 

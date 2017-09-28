@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
 
@@ -30,10 +30,7 @@ export default class Button extends Component {
      * Class name for the component
      * @type {string | Array}
      */
-    className: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   };
 
   /**
@@ -42,7 +39,7 @@ export default class Button extends Component {
   static defaultProps = {
     isDisabled: false,
     isSpinning: false,
-  }
+  };
 
   /**
    * Builds the className attribute for the button
@@ -59,7 +56,7 @@ export default class Button extends Component {
       },
       className
     );
-  }
+  };
 
   /**
    * Sanitizes the component props by removing all custom props so the rest can be assigned to the
@@ -75,24 +72,20 @@ export default class Button extends Component {
     delete props.isSpinning;
 
     return props;
-  }
+  };
 
   /**
    * The rendes method
    * @return {JSX} The component's markup
    */
   render() {
-    const {isDisabled} = this.props;
+    const { isDisabled } = this.props;
 
     const buttonClassNames = this.getButtonClassNames();
     const extraProps = this.getProps();
 
     return (
-      <button
-        className={buttonClassNames}
-        disabled={isDisabled}
-        {...extraProps}
-      >
+      <button className={buttonClassNames} disabled={isDisabled} {...extraProps}>
         {this.props.children}
       </button>
     );

@@ -11,7 +11,6 @@ import { shallowCompareOptionsArray } from '../_utils';
  * @extends {Component}
  */
 export default class RadioGroup extends Component {
-
   /**
    * List of possible props
    * @type {Object}
@@ -32,17 +31,16 @@ export default class RadioGroup extends Component {
      * [{ id, label, value, isDisabled, ref }]
      * @type {Array}
      */
-    data: PropTypes.arrayOf(PropTypes.shape({
-      id: PropTypes.string.isRequired,
-      label: PropTypes.string.isRequired,
-      value: PropTypes.string.isRequired,
-      isDisabled: PropTypes.bool,
-      ref: PropTypes.oneOfType([
-        PropTypes.func,
-        PropTypes.string,
-      ]),
-      props: PropTypes.object,
-    })).isRequired,
+    data: PropTypes.arrayOf(
+      PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        label: PropTypes.string.isRequired,
+        value: PropTypes.string.isRequired,
+        isDisabled: PropTypes.bool,
+        ref: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
+        props: PropTypes.object,
+      })
+    ).isRequired,
     /**
      * attibute indicating the checked radio button in the group.
      * its value will be equal to the id of the desired radio box object in the data array.
@@ -65,13 +63,10 @@ export default class RadioGroup extends Component {
      * Class name for the component
      * @type {string | Array}
      */
-    className: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
   };
 
-   /**
+  /**
    * Default prop values
    */
   static defaultProps = {
@@ -98,7 +93,7 @@ export default class RadioGroup extends Component {
    */
   componentWillReceiveProps(nextProps) {
     const { data, active } = this.props;
-    if (!shallowCompareOptionsArray(data, nextProps.data) || (active !== nextProps.active)) {
+    if (!shallowCompareOptionsArray(data, nextProps.data) || active !== nextProps.active) {
       this.setState({
         active: this.getDefaultActive(nextProps.data, nextProps.active),
       });
@@ -122,7 +117,7 @@ export default class RadioGroup extends Component {
     });
 
     return validActive ? active : data[0].id;
-  }
+  };
 
   /**
    * Handles the checked state change for the radio
@@ -131,14 +126,17 @@ export default class RadioGroup extends Component {
    */
   handleChange = (evt, id) => {
     evt.persist();
-    this.setState({
-      active: id,
-    }, () => {
-      if (this.props.onChange) {
-        this.props.onChange(evt, id);
+    this.setState(
+      {
+        active: id,
+      },
+      () => {
+        if (this.props.onChange) {
+          this.props.onChange(evt, id);
+        }
       }
-    });
-  }
+    );
+  };
 
   /**
    * Builds the component's markup
@@ -156,35 +154,30 @@ export default class RadioGroup extends Component {
 
     return (
       <ul className={radioGroupClassNames} id={id}>
-        {
-          data.map((r, i) => {
-            const inputClassNames = classNames(
-              'gooey-radio-group__input',
-              {
-                'gooey-radio-group__input--disabled': isDisabled || r.isDisabled,
-              }
-            );
-            return (
-              <li key={r.id} className="gooey-radio-group__option">
-                <input
-                  className={inputClassNames}
-                  type="radio"
-                  name={name}
-                  value={r.value}
-                  id={r.id}
-                  checked={this.state.active === r.id}
-                  onChange={evt => this.handleChange(evt, r.id)}
-                  disabled={isDisabled || r.isDisabled}
-                  ref={r.ref || null}
-                  {...r.props}
-                />
-                <label htmlFor={r.id} className="gooey-radio-group__label">
-                  {r.label}
-                </label>
-              </li>
-            );
-          })
-        }
+        {data.map((r, i) => {
+          const inputClassNames = classNames('gooey-radio-group__input', {
+            'gooey-radio-group__input--disabled': isDisabled || r.isDisabled,
+          });
+          return (
+            <li key={r.id} className="gooey-radio-group__option">
+              <input
+                className={inputClassNames}
+                type="radio"
+                name={name}
+                value={r.value}
+                id={r.id}
+                checked={this.state.active === r.id}
+                onChange={evt => this.handleChange(evt, r.id)}
+                disabled={isDisabled || r.isDisabled}
+                ref={r.ref || null}
+                {...r.props}
+              />
+              <label htmlFor={r.id} className="gooey-radio-group__label">
+                {r.label}
+              </label>
+            </li>
+          );
+        })}
       </ul>
     );
   }

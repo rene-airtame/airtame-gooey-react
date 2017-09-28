@@ -15,10 +15,7 @@ import Modal from '../Modal';
  * @return {JSX}      The markup to be rendered
  */
 export default function Dialog(props) {
-  const dialogClassNames = classNames(
-    'gooey-dialog',
-    props.className,
-  );
+  const dialogClassNames = classNames('gooey-dialog', props.className);
 
   return (
     <Modal
@@ -84,8 +81,5 @@ Dialog.propTypes = {
    * Class name for the component
    * @type {string | Array}
    */
-  className: PropTypes.oneOfType([
-    PropTypes.string,
-    PropTypes.array,
-  ]),
+  className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
 };

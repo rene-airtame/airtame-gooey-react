@@ -29,17 +29,13 @@ export default class SideDrawer extends Component {
      * Optional class names to append to the parent container
      * @type {string|Array}
      */
-    className: PropTypes.oneOfType([
-      PropTypes.array,
-      PropTypes.string,
-    ]),
+    className: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
   };
 
   static defaultProps = {
     isOpen: false,
     onOverlayClick: null,
-  }
-
+  };
 
   getSideDrawerStyles = () => {
     const openStyles = {
@@ -51,7 +47,7 @@ export default class SideDrawer extends Component {
     };
 
     return this.props.isOpen ? openStyles : closedStyles;
-  }
+  };
 
   getContentStyles = () => {
     const openStyles = {
@@ -63,7 +59,7 @@ export default class SideDrawer extends Component {
     };
 
     return this.props.isOpen ? openStyles : closedStyles;
-  }
+  };
 
   /**
    * Builds the component's markup
@@ -74,33 +70,35 @@ export default class SideDrawer extends Component {
 
     const sideDrawerClassNames = classNames(
       'gooey-side-drawer',
-      {'gooey-side-drawer--open': isOpen},
+      { 'gooey-side-drawer--open': isOpen },
       this.props.className
     );
 
-    const sideDrawerStyles = Object.assign({
-      position: 'fixed',
-      top: 0,
-      zIndex: 101,
-      width: '100%',
-      height: '100vh',
-    }, this.getSideDrawerStyles());
+    const sideDrawerStyles = Object.assign(
+      {
+        position: 'fixed',
+        top: 0,
+        zIndex: 101,
+        width: '100%',
+        height: '100vh',
+      },
+      this.getSideDrawerStyles()
+    );
 
-    const wrapperStyles = Object.assign({
-      position: 'fixed',
-      top: 0,
-      zIndex: 5,
-      height: '100vh',
-    }, this.getSideDrawerStyles());
+    const wrapperStyles = Object.assign(
+      {
+        position: 'fixed',
+        top: 0,
+        zIndex: 5,
+        height: '100vh',
+      },
+      this.getSideDrawerStyles()
+    );
 
     const contentStyles = this.getContentStyles();
 
     return (
-      <div
-        className={sideDrawerClassNames}
-        onClick={onOverlayClick}
-        style={sideDrawerStyles}
-      >
+      <div className={sideDrawerClassNames} onClick={onOverlayClick} style={sideDrawerStyles}>
         <div
           className="gooey-side-drawer__wrapper"
           onClick={e => e.stopPropagation()}
@@ -114,4 +112,3 @@ export default class SideDrawer extends Component {
     );
   }
 }
-

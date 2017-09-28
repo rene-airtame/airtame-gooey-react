@@ -69,24 +69,18 @@ export default class TextField extends Component {
      * ref for the input element
      * @type {function | string}
      */
-    inputRef: PropTypes.oneOfType([
-      PropTypes.func,
-      PropTypes.string,
-    ]),
+    inputRef: PropTypes.oneOfType([PropTypes.func, PropTypes.string]),
     /**
      * Class name for the component
      * @type {string | Array}
      */
-    className: PropTypes.oneOfType([
-      PropTypes.string,
-      PropTypes.array,
-    ]),
+    className: PropTypes.oneOfType([PropTypes.string, PropTypes.array]),
     /**
      * The id for the field. This should only be used if the field will be associated with a label
      * @type {string}
      */
     id: PropTypes.string,
-  }
+  };
 
   /**
    * Default prop values
@@ -108,16 +102,14 @@ export default class TextField extends Component {
   /**
    * Constat listing the valid values for the type prop
    */
-  supportedTypes = [
-    'text',
-    'password',
-  ];
+  supportedTypes = ['text', 'password'];
 
   /**
    * Error message for maxContentLength exceeded
    */
-  maxLengthError = this.props.maxContentLength ?
-    `Value can not be longer than ${this.props.maxContentLength} characters.` : '';
+  maxLengthError = this.props.maxContentLength
+    ? `Value can not be longer than ${this.props.maxContentLength} characters.`
+    : '';
 
   /**
    * Component's initial state
@@ -158,13 +150,16 @@ export default class TextField extends Component {
    */
   handleInputValue = e => {
     e.persist();
-    this.setState({
-      textFieldValue: e.target.value,
-      isMaxLengthExceeded: false,
-    }, () => {
-      this.attemptOnChangeCallback(e);
-    });
-  }
+    this.setState(
+      {
+        textFieldValue: e.target.value,
+        isMaxLengthExceeded: false,
+      },
+      () => {
+        this.attemptOnChangeCallback(e);
+      }
+    );
+  };
 
   /**
    * Attempts to trigger the onChange callback function
@@ -174,19 +169,22 @@ export default class TextField extends Component {
   attemptOnChangeCallback = e => {
     const { maxContentLength } = this.props;
     if (maxContentLength && this.state.textFieldValue.length > maxContentLength) {
-      this.setState({
-        isMaxLengthExceeded: true,
-      }, () => {
-        if (this.props.onChange) {
-          this.props.onChange(e, new Error(this.maxLengthError));
+      this.setState(
+        {
+          isMaxLengthExceeded: true,
+        },
+        () => {
+          if (this.props.onChange) {
+            this.props.onChange(e, new Error(this.maxLengthError));
+          }
         }
-      });
+      );
     } else {
       if (this.props.onChange) {
         this.props.onChange(e);
       }
     }
-  }
+  };
 
   /**
    * Updates the state to show/hide the password
@@ -195,7 +193,7 @@ export default class TextField extends Component {
     this.setState({
       isPasswordShown: !this.state.isPasswordShown,
     });
-  }
+  };
 
   /**
    * Provides the string to be used by the component to set the type of input field
@@ -207,7 +205,7 @@ export default class TextField extends Component {
       return 'text';
     }
     return this.state.isPasswordShown ? 'text' : 'password';
-  }
+  };
 
   /**
    * Sanitizes the component props by removing all custom props so the rest can be assigned to the
@@ -232,7 +230,7 @@ export default class TextField extends Component {
     delete props.inputRef;
 
     return props;
-  }
+  };
 
   /**
    * The render method.
@@ -263,12 +261,11 @@ export default class TextField extends Component {
       className
     );
 
-    const showPasswordButtonClassnames = !isPassword ? [] : classNames(
-      'gooey-text-field__show-password',
-      {
-        'gooey-text-field__show-password--hide': this.state.isPasswordShown,
-      }
-    );
+    const showPasswordButtonClassnames = !isPassword
+      ? []
+      : classNames('gooey-text-field__show-password', {
+          'gooey-text-field__show-password--hide': this.state.isPasswordShown,
+        });
 
     const inputType = this.getType();
 
@@ -288,35 +285,21 @@ export default class TextField extends Component {
           ref={inputRef}
           {...props}
         />
-        {
-          isPassword && !disablePasswordToggle
-          ?
-            <button
-              className={showPasswordButtonClassnames}
-              onClick={this.handlePasswordVisibility}
-              title={toggleText}
-              type="button"
-            >
-              {toggleText}
-            </button>
-          :
-            null
-        }
-        {
-        (isError && errorMessage.length || this.state.isMaxLengthExceeded)
-          ?
-            <span className="gooey-text-field__error-message">
-              {
-                this.state.isMaxLengthExceeded
-                ?
-                  this.maxLengthError
-                :
-                  errorMessage
-              }
-            </span>
-          :
-            null
-        }
+        {isPassword && !disablePasswordToggle ? (
+          <button
+            className={showPasswordButtonClassnames}
+            onClick={this.handlePasswordVisibility}
+            title={toggleText}
+            type="button"
+          >
+            {toggleText}
+          </button>
+        ) : null}
+        {(isError && errorMessage.length) || this.state.isMaxLengthExceeded ? (
+          <span className="gooey-text-field__error-message">
+            {this.state.isMaxLengthExceeded ? this.maxLengthError : errorMessage}
+          </span>
+        ) : null}
       </div>
     );
   }
