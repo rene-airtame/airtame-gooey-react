@@ -1,14 +1,6 @@
-import chai, { expect } from 'chai';
-import chaiEnzyme from 'chai-enzyme';
-import { sinon, spy } from 'sinon';
-import { mount, render, shallow } from 'enzyme';
+import { configure } from 'enzyme';
+import Adapter from 'enzyme-adapter-react-16';
+import 'core-js/es6/map';
+import 'core-js/es6/set';
 
-chai.use(chaiEnzyme());
-
-global.expect = expect;
-global.sinon = sinon;
-global.spy = spy;
-
-global.mount = mount;
-global.render = render;
-global.shallow = shallow;
+configure({ adapter: new Adapter() });

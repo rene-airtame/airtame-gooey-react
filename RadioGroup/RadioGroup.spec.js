@@ -1,4 +1,6 @@
 import React from 'react';
+import { render, shallow, mount } from 'enzyme';
+import { spy } from 'sinon';
 import RadioGroup from './RadioGroup';
 
 describe('<RadioGroup />', () => {
@@ -9,10 +11,10 @@ describe('<RadioGroup />', () => {
       value: 'foo',
       isDisabled: false,
     }];
-    const wrapper = render(
+    const wrapper = shallow(
       <RadioGroup name="test-radio" data={radios} active="foo" />
     );
-    expect(wrapper).to.have.tagName('ul');
+    expect(wrapper).toHaveTagName('ul');
   });
 
   it('should make the first radio checked by default', () => {
@@ -28,7 +30,7 @@ describe('<RadioGroup />', () => {
     const wrapper = render(
       <RadioGroup name="test-radio" data={radios} />
     );
-    expect(wrapper.find('#foo')[0].attribs.checked).to.eql('');
+    expect(wrapper.find('#foo')[0].attribs.checked).toEqual('');
   });
 
   it('should make the requested radio checked', () => {
@@ -44,8 +46,8 @@ describe('<RadioGroup />', () => {
     const wrapper = render(
       <RadioGroup name="test-radio" data={radios} active="bar" />
     );
-    expect(wrapper.find('#foo')[0].attribs.checked).to.eql(undefined);
-    expect(wrapper.find('#bar')[0].attribs.checked).to.eql('');
+    expect(wrapper.find('#foo')[0].attribs.checked).toEqual(undefined);
+    expect(wrapper.find('#bar')[0].attribs.checked).toEqual('');
   });
 
   it('should toggle two radios', () => {
@@ -62,12 +64,12 @@ describe('<RadioGroup />', () => {
       <RadioGroup name="test-radio" data={radios} active="foo" />
     );
 
-    expect(wrapper.state('active')).to.eql('foo');
+    expect(wrapper.state('active')).toEqual('foo');
     wrapper.find('#bar').simulate('change', {
       target: { value: 'bar' },
       persist: () => {},
     });
-    expect(wrapper.state('active')).to.eql('bar');
+    expect(wrapper.state('active')).toEqual('bar');
   });
 
   it('should disable individual radios', () => {
@@ -84,8 +86,8 @@ describe('<RadioGroup />', () => {
     const wrapper = render(
       <RadioGroup name="test-radio" data={radios} active="foo" />
     );
-    expect(wrapper.find('#foo')[0].attribs.disabled).to.eql(undefined);
-    expect(wrapper.find('#bar')[0].attribs.disabled).to.eql('');
+    expect(wrapper.find('#foo')[0].attribs.disabled).toEqual(undefined);
+    expect(wrapper.find('#bar')[0].attribs.disabled).toEqual('');
   });
 
   it('should disable all radios', () => {
@@ -101,7 +103,7 @@ describe('<RadioGroup />', () => {
     const wrapper = render(
       <RadioGroup name="test-radio" data={radios} active="foo" isDisabled={true} />
     );
-    expect(wrapper.find('input:disabled')).to.have.length(2);
+    expect(wrapper.find('input:disabled')).toHaveLength(2);
   });
 
   it('should have a linked input and label', () => {
@@ -120,11 +122,11 @@ describe('<RadioGroup />', () => {
 
     const fooID = wrapper.find('input')[0].attribs.id;
     const fooLabel = wrapper.find('label')[0].attribs.for;
-    expect(fooID).to.eql(fooLabel);
+    expect(fooID).toEqual(fooLabel);
 
     const barID = wrapper.find('input')[1].attribs.id;
     const barLabel = wrapper.find('label')[1].attribs.for;
-    expect(barID).to.eql(barLabel);
+    expect(barID).toEqual(barLabel);
   });
 
   it('should trigger the onChange callback function', () => {
@@ -141,12 +143,12 @@ describe('<RadioGroup />', () => {
     const wrapper = shallow(
       <RadioGroup name="test-radio" data={radios} active="foo" onChange={onChangeCallback} />
     );
-    expect(onChangeCallback).to.have.property('callCount', 0);
+    expect(onChangeCallback).toHaveProperty('callCount', 0);
     wrapper.find('#bar').simulate('change', {
       target: { value: 'bar' },
       persist: () => {},
     });
-    expect(onChangeCallback).to.have.property('callCount', 1);
+    expect(onChangeCallback).toHaveProperty('callCount', 1);
   });
 
   it('should properly set refs for the radios', () => {
@@ -164,8 +166,8 @@ describe('<RadioGroup />', () => {
     const wrapper = mount(
       <RadioGroup name="test-radio" data={radios} active="foo" />
     );
-    expect(wrapper.ref('firstInput').is('#foo')).to.eql(true);
-    expect(wrapper.ref('secondInput').is('#bar')).to.eql(true);
+    expect(wrapper.ref('firstInput').id).toBe('foo');
+    expect(wrapper.ref('secondInput').id).toBe('bar');
   });
 
   it('should add valid additional props to specified radios', () => {
@@ -188,7 +190,7 @@ describe('<RadioGroup />', () => {
       <RadioGroup name="test-radio" data={radios} active="foo" />
     );
     wrapper.find('#foo').simulate('focus')
-    expect(focusCallback).to.have.property('callCount', 1);
+    expect(focusCallback).toHaveProperty('callCount', 1);
   });
 
   it('should set the proper state if the active prop is updated', () => {
@@ -204,9 +206,9 @@ describe('<RadioGroup />', () => {
     const wrapper = shallow(
       <RadioGroup name="test-radio" data={radios} active="foo" />
     );
-    expect(wrapper.state('active')).to.eql('foo');
+    expect(wrapper.state('active')).toEqual('foo');
     wrapper.setProps({ active: 'bar' })
-    expect(wrapper.state('active')).to.eql('bar');
+    expect(wrapper.state('active')).toEqual('bar');
   });
 
   it('should set the proper state if the data prop is updated', () => {
@@ -232,9 +234,9 @@ describe('<RadioGroup />', () => {
     const wrapper = shallow(
       <RadioGroup name="test-radio" data={radios} />
     );
-    expect(wrapper.state('active')).to.eql('foo');
+    expect(wrapper.state('active')).toEqual('foo');
     wrapper.setProps({ data: radios2 })
-    expect(wrapper.state('active')).to.eql('foo2');
+    expect(wrapper.state('active')).toEqual('foo2');
   });
 
   it('should not touch the state if invalid props change', () => {
@@ -251,9 +253,9 @@ describe('<RadioGroup />', () => {
     const wrapper = shallow(
       <RadioGroup name="test-radio" data={radios} active="foo" />
     );
-    expect(stateSpy.callCount).to.eql(0);
+    expect(stateSpy.callCount).toEqual(0);
     wrapper.setProps({ name: 'updated-name' });
-    expect(stateSpy.callCount).to.eql(0);
+    expect(stateSpy.callCount).toEqual(0);
   });
 
   it('should not touch the state if the data prop doesnt change', () => {
@@ -279,9 +281,9 @@ describe('<RadioGroup />', () => {
     const wrapper = shallow(
       <RadioGroup name="test-radio" data={radios} active="bar" />
     );
-    expect(wrapper.state('active')).to.eql('bar');
+    expect(wrapper.state('active')).toEqual('bar');
     wrapper.setProps({ data: radios2 })
-    expect(wrapper.state('active')).to.eql('bar');
+    expect(wrapper.state('active')).toEqual('bar');
   });
 
 });

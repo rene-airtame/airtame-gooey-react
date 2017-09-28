@@ -1,43 +1,44 @@
 import React from 'react';
+import { render, shallow, mount } from 'enzyme';
+import { spy } from 'sinon';
 import Switch from './Switch';
-import Checkbox from '../Checkbox';
 
 describe('<Switch />', () => {
   it('should render the switch', () => {
-    const wrapper = render(
+    const wrapper = shallow(
       <Switch id="test-siwtch" label="test-switch" value="foo" />
     );
-    expect(wrapper).to.have.tagName('div');
+    expect(wrapper).toMatchSelector('Checkbox');
   });
 
   it('should render a Checkbox component', () => {
     const wrapper = shallow(
       <Switch id="test-siwtch" label="test-switch" value="foo" />
     );
-    expect(wrapper.find(Checkbox)).to.have.length('1');
+    expect(wrapper.name()).toBe('Checkbox');
   });
 
   it('should properly translate the isOn prop', () => {
     const wrapper = render(
       <Switch id="test-siwtch" label="test-switch" value="foo" isOn />
     );
-    expect(wrapper.find('input')[0].attribs.checked).to.eql('');
+    expect(wrapper.find('input')[0].attribs.checked).toEqual('');
   });
 
   it('should add state classes for the switch', () => {
-    const wrapper = render(
+    const wrapper = shallow(
       <Switch id="test-siwtch" label="test-switch" value="foo" isOn isDisabled />
     );
-    expect(wrapper.find('.gooey-switch--disabled')).to.have.length(1);
-    expect(wrapper.find('.gooey-switch--on')).to.have.length(1);
+    expect(wrapper).toHaveClassName('gooey-switch--disabled');
+    expect(wrapper).toHaveClassName('gooey-switch--on');
   });
 
   it('should propagate additional valid props to the input element', () => {
     const focusCallback = spy();
     const wrapper = mount(
-      <Switch id="test-siwtch" label="test-switch" value="foo"  onFocus={focusCallback} />
+      <Switch id="test-siwtch" label="test-switch" value="foo" onFocus={focusCallback} />
     );
     wrapper.find('input').simulate('focus')
-    expect(focusCallback).to.have.property('callCount', 1);
+    expect(focusCallback).toHaveProperty('callCount', 1);
   });
 });

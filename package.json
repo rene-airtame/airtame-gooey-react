@@ -17,27 +17,29 @@
   "main": "./index.js",
   "module": "./index.es.js",
   "jsnext:main": "./index.es.js",
-  "keywords": ["react", "es6", "components", "component library"],
+  "keywords": [
+    "react",
+    "es6",
+    "components",
+    "component library"
+  ],
   "dependencies": {
     "warning": "^3.0.0"
   },
   "peerDependencies": {
     "classnames": "^2.2.5",
     "prop-types": "^15.5.8",
-    "react": "^16.0.0",
-    "react-dom": "^16.0.0"
+    "react": "^16.0.0"
   },
   "devDependencies": {
-    "babel-plugin-istanbul": "^4.1.4",
     "babel-preset-env": "^1.6.0",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-1": "6.24.1",
-    "babel-register": "^6.23.0",
-    "chai": "^3.5.0",
-    "chai-enzyme": "^0.6.1",
+    "classnames": "^2.2.5",
     "codecov": "^2.2.0",
-    "cross-env": "^4.0.0",
-    "enzyme": "^2.8.2",
+    "core-js": "^2.5.1",
+    "enzyme": "^3.0.0",
+    "enzyme-adapter-react-16": "^1.0.0",
     "eslint": "^3.12.2",
     "eslint-config-airtame": "^2.0.0",
     "eslint-import-resolver-babel-module": "^3.0.0",
@@ -46,47 +48,45 @@
     "eslint-plugin-babel": "^4.0.0",
     "eslint-plugin-import": "^2.2.0",
     "eslint-plugin-react": "^5.2.0",
-    "jsdom": "=9.12.0",
-    "mocha": "^3.2.0",
-    "mocha-appveyor-reporter": "^0.4.0",
-    "nyc": "^11.0.2",
-    "react-dom": "^15.5.4",
-    "react-test-renderer": "^15.5.4",
+    "jest": "^21.2.1",
+    "jest-enzyme": "^4.0.0",
+    "prop-types": "^15.5.8",
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0",
+    "react-test-renderer": "^16.0.0",
     "sinon": "^1.17.7"
   },
   "babel": {
-    "presets": ["env", "stage-1", "react"],
-    "env": {
-      "test": {
-        "plugins": [
-          [
-            "istanbul",
-            {
-              "exclude": ["**/*.spec.js", "**/index.js", "**/config.js", "**/dom.js"]
-            }
-          ]
-        ]
-      }
-    }
+    "presets": [
+      "env",
+      "stage-1",
+      "react"
+    ]
   },
   "eslintConfig": {
-    "extends": "airtame"
+    "extends": "airtame",
+    "env": {
+      "jest": true,
+      "browser": true,
+      "node": true
+    }
   },
-  "nyc": {
-    "sourceMap": false,
-    "instrument": false,
-    "include": ["./**/*.js"],
-    "exclude": ["./**/index.js", "./test/config.js", "./test/dom.js"],
-    "require": ["babel-register"]
+  "jest": {
+    "setupFiles": [
+      "./test/config.js"
+    ],
+    "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
+    "unmockedModulePathPatterns": [
+      "react",
+      "enzyme",
+      "jest-enzyme"
+    ]
   },
   "scripts": {
-    "unit":
-      "cross-env NODE_ENV=test nyc mocha --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
-    "unit:win":
-      "cross-env NODE_ENV=test mocha --reporter mocha-appveyor-reporter --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
-    "report-coverage": "nyc report --reporter=lcov && codecov",
+    "unit": "jest",
+    "coverage": "jest --coverage",
+    "report-coverage": "npm run coverage && codecov",
     "lint": "eslint ./**/*.js --quiet",
-    "test": "npm run lint && npm run unit",
-    "test:win": "npm run lint && npm run unit:win"
+    "test": "npm run lint && npm run unit"
   }
 }

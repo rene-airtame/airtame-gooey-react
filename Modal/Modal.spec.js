@@ -1,15 +1,17 @@
 import React from 'react';
+import { shallow, mount } from 'enzyme';
+import { spy } from 'sinon';
 import Modal from './Modal';
 
 describe('<Modal />', () => {
   it('should render the modal', () => {
-    const wrapper = render(<Modal isOpen onClose={e => false}>content</Modal>);
-    expect(wrapper).to.have.tagName('div');
+    const wrapper = shallow(<Modal isOpen onClose={e => false}>content</Modal>);
+    expect(wrapper).toHaveTagName('div');
   });
 
   it('should not render anything when closed', () => {
     const wrapper = shallow(<Modal isOpen={false} onClose={e => false}>content</Modal>);
-    expect(wrapper.type()).to.eql(null);
+    expect(wrapper.type()).toEqual(null);
   });
 
   it('should trigger the onClose function when pressing the close button', () => {
@@ -17,7 +19,7 @@ describe('<Modal />', () => {
 
     const wrapper = mount(<Modal isOpen onClose={closeCallback}>content</Modal>);
     wrapper.find('button').simulate('click');
-    expect(closeCallback).to.have.property('callCount', 1);
+    expect(closeCallback).toHaveProperty('callCount', 1);
   });
 
   it('should trigger the onClose function when clicking modal overlay', () => {
@@ -25,7 +27,7 @@ describe('<Modal />', () => {
 
     const wrapper = mount(<Modal isOpen onClose={closeCallback}>content</Modal>);
     wrapper.find('.gooey-modal').simulate('click');
-    expect(closeCallback).to.have.property('callCount', 1);
+    expect(closeCallback).toHaveProperty('callCount', 1);
   });
 
   it('should not trigger the onClose function when clicking modal content', () => {
@@ -33,7 +35,7 @@ describe('<Modal />', () => {
 
     const wrapper = mount(<Modal isOpen onClose={closeCallback}>content</Modal>);
     wrapper.find('.gooey-modal__content').simulate('click');
-    expect(closeCallback).to.have.property('callCount', 0);
+    expect(closeCallback).toHaveProperty('callCount', 0);
   });
 
   it('should not close when clicking the overlay if the disableOverlayClose prop is passed', () => {
@@ -52,16 +54,16 @@ describe('<Modal />', () => {
       </Modal>
     );
     wrapper.find('.gooey-modal').simulate('click');
-    expect(open).to.eql(true);
+    expect(open).toEqual(true);
   });
 
   it('should open and close when the isOpen prop changes', () => {
     const wrapper = shallow(<Modal isOpen onClose={close}>content</Modal>);
 
     wrapper.setProps({isOpen: false});
-    expect(wrapper.type()).to.eql(null);
+    expect(wrapper.type()).toEqual(null);
 
     wrapper.setProps({isOpen: true});
-    expect(wrapper).to.have.tagName('div');
+    expect(wrapper).toHaveTagName('div');
   });
 });
