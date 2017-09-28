@@ -17,21 +17,19 @@
   "main": "./index.js",
   "module": "./index.es.js",
   "jsnext:main": "./index.es.js",
-  "keywords": [
-    "react",
-    "es6",
-    "components",
-    "component library"
-  ],
+  "keywords": ["react", "es6", "components", "component library"],
   "dependencies": {
+    "warning": "^3.0.0"
+  },
+  "peerDependencies": {
     "classnames": "^2.2.5",
     "prop-types": "^15.5.8",
-    "react": "^15.5.4",
-    "warning": "^3.0.0"
+    "react": "^16.0.0",
+    "react-dom": "^16.0.0"
   },
   "devDependencies": {
     "babel-plugin-istanbul": "^4.1.4",
-    "babel-preset-es2015": "6.24.1",
+    "babel-preset-env": "^1.6.0",
     "babel-preset-react": "6.24.1",
     "babel-preset-stage-1": "6.24.1",
     "babel-register": "^6.23.0",
@@ -57,23 +55,14 @@
     "sinon": "^1.17.7"
   },
   "babel": {
-    "presets": [
-      "es2015",
-      "stage-1",
-      "react"
-    ],
+    "presets": ["env", "stage-1", "react"],
     "env": {
       "test": {
         "plugins": [
           [
             "istanbul",
             {
-              "exclude": [
-                "**/*.spec.js",
-                "**/index.js",
-                "**/config.js",
-                "**/dom.js"
-              ]
+              "exclude": ["**/*.spec.js", "**/index.js", "**/config.js", "**/dom.js"]
             }
           ]
         ]
@@ -86,21 +75,15 @@
   "nyc": {
     "sourceMap": false,
     "instrument": false,
-    "include": [
-      "./**/*.js"
-    ],
-    "exclude": [
-      "./**/index.js",
-      "./test/config.js",
-      "./test/dom.js"
-    ],
-    "require": [
-      "babel-register"
-    ]
+    "include": ["./**/*.js"],
+    "exclude": ["./**/index.js", "./test/config.js", "./test/dom.js"],
+    "require": ["babel-register"]
   },
   "scripts": {
-    "unit": "cross-env NODE_ENV=test nyc mocha --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
-    "unit:win": "cross-env NODE_ENV=test mocha --reporter mocha-appveyor-reporter --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
+    "unit":
+      "cross-env NODE_ENV=test nyc mocha --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
+    "unit:win":
+      "cross-env NODE_ENV=test mocha --reporter mocha-appveyor-reporter --compilers js:babel-register --require ./test/config.js --require ./test/dom.js --recursive ./**/*.spec.js",
     "report-coverage": "nyc report --reporter=lcov && codecov",
     "lint": "eslint ./**/*.js --quiet",
     "test": "npm run lint && npm run unit",
