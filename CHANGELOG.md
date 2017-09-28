@@ -1,5 +1,14 @@
 # Airtame Gooey React CHANGELOG
 
+## v0.4.3
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.2...v0.4.3)
+
+- Moved `react`, `classnames` and `prop-types` to be peerDependencies and devDependencies simultaneously to stop conflicting with major dependency version bumps on installation.
+- Updated Eslint config to use the latest airtame config
+- Ran Prettier through the codebase
+- Migrated tests to Jest
+
 ## v0.4.2
 
 [Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.1...v0.4.2)
