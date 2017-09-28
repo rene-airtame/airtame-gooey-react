@@ -17,12 +17,7 @@
   "main": "./index.js",
   "module": "./index.es.js",
   "jsnext:main": "./index.es.js",
-  "keywords": [
-    "react",
-    "es6",
-    "components",
-    "component library"
-  ],
+  "keywords": ["react", "es6", "components", "component library"],
   "dependencies": {
     "warning": "^3.0.0"
   },
@@ -37,7 +32,6 @@
     "babel-preset-stage-1": "6.24.1",
     "classnames": "^2.2.5",
     "codecov": "^2.2.0",
-    "core-js": "^2.5.1",
     "enzyme": "^3.0.0",
     "enzyme-adapter-react-16": "^1.0.0",
     "eslint": "^3.12.2",
@@ -57,11 +51,7 @@
     "sinon": "^1.17.7"
   },
   "babel": {
-    "presets": [
-      "env",
-      "stage-1",
-      "react"
-    ]
+    "presets": ["env", "stage-1", "react"]
   },
   "eslintConfig": {
     "extends": "airtame",
@@ -72,15 +62,9 @@
     }
   },
   "jest": {
-    "setupFiles": [
-      "./test/config.js"
-    ],
+    "setupFiles": ["./test/shim.js", "./test/config.js"],
     "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
-    "unmockedModulePathPatterns": [
-      "react",
-      "enzyme",
-      "jest-enzyme"
-    ]
+    "unmockedModulePathPatterns": ["react", "enzyme", "jest-enzyme"]
   },
   "scripts": {
     "unit": "jest",
