@@ -8,6 +8,7 @@
 - Updated Eslint config to use the latest airtame config
 - Ran Prettier through the codebase
 - Migrated tests to Jest
+- Moved babel config to `.babelrc`
 
 ## v0.4.2
 

@@ -48,9 +48,6 @@
     "react-test-renderer": "^16.0.0",
     "sinon": "^1.17.7"
   },
-  "babel": {
-    "presets": ["env", "stage-1", "react"]
-  },
   "eslintConfig": {
     "extends": "airtame",
     "env": {
