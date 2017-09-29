@@ -59,7 +59,8 @@
   "jest": {
     "setupFiles": ["./test/shim.js", "./test/config.js"],
     "setupTestFrameworkScriptFile": "./node_modules/jest-enzyme/lib/index.js",
-    "unmockedModulePathPatterns": ["react", "enzyme", "jest-enzyme"]
+    "unmockedModulePathPatterns": ["react", "enzyme", "jest-enzyme"],
+    "collectCoverageFrom": ["**/*.js", "!**/test/**", "!**/index.js", "!**/coverage/**"]
   },
   "scripts": {
     "unit": "jest",
