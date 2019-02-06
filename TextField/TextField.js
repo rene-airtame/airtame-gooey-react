@@ -100,11 +100,6 @@ export default class TextField extends Component {
   };
 
   /**
-   * Constat listing the valid values for the type prop
-   */
-  supportedTypes = ['text', 'password'];
-
-  /**
    * Error message for maxContentLength exceeded
    */
   maxLengthError = this.props.maxContentLength
@@ -119,17 +114,6 @@ export default class TextField extends Component {
     textFieldValue: this.props.value,
     isMaxLengthExceeded: false,
   };
-
-  /**
-   * Lifecycle method.
-   * Warns the user if an unsupported value is passed as the `type` prop
-   */
-  componentDidMount() {
-    warning(
-      this.supportedTypes.includes(this.props.type),
-      'Only `text` and `password` are accepted as field types'
-    );
-  }
 
   /**
    * Updates state variables that are initialized based on props if the props change at some point
@@ -201,10 +185,10 @@ export default class TextField extends Component {
    * @return {string} The type of input
    */
   getType = () => {
-    if (this.props.type === 'text') {
-      return 'text';
+    if (this.props.type === 'password') {
+      return this.state.isPasswordShown ? 'text' : 'password';
     }
-    return this.state.isPasswordShown ? 'text' : 'password';
+    return this.props.type;
   };
 
   /**
