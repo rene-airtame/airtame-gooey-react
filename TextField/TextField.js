@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import classNames from 'classnames';
-import warning from 'warning';
 
 /**
  * TextField component. Renders an input field of type text or password and handles its behavior
