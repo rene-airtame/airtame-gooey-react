@@ -1,5 +1,13 @@
 # Airtame Gooey React CHANGELOG
 
+## v0.4.4
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.2...v0.4.3)
+
+- Support all types on TextField (input)
+- Fixed coverage report
+- Moved babel config to `.babelrc`
+
 ## v0.4.3
 
 [Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.2...v0.4.3)
