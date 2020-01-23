@@ -11,10 +11,10 @@ import classNames from 'classnames';
  */
 export default class SideDrawer extends Component {
   /**
-  * Definition of props expected by the SideDrawer component
-  * @type {Object}
-  */
-  static PropTypes = {
+   * Definition of props expected by the SideDrawer component
+   * @type {Object}
+   */
+  static propTypes = {
     /**
      * Function to trigger when clicking on the overlay
      * @type {Function}
