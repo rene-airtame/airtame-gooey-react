@@ -1,5 +1,13 @@
 # Airtame Gooey React CHANGELOG
 
+
+## v0.4.5
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.4...v0.4.5)
+
+- Fix SideDrawer propTypes typo
+- Update some npm packages for security reasons
+
 ## v0.4.4
 
 [Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.3...v0.4.4)
