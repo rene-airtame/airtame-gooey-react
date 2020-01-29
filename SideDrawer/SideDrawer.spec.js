@@ -31,18 +31,6 @@ describe('<SideDrawer />', () => {
     expect(wrapper.find('.gooey-side-drawer--open')).toHaveLength(0);
   });
 
-  it('should trigger the onOverlayClick function when clicking SideDrawer overlay', () => {
-    const closeCallback = spy();
-
-    const wrapper = mount(
-      <SideDrawer isOpen={open} onOverlayClick={closeCallback}>
-        content
-      </SideDrawer>
-    );
-    wrapper.find('.gooey-side-drawer').simulate('click');
-    expect(closeCallback).toHaveProperty('callCount', 1);
-  });
-
   it('should not trigger the onOverlayClick function when clicking SideDrawer content', () => {
     const closeCallback = spy();
 
@@ -63,8 +51,8 @@ describe('<SideDrawer />', () => {
         content
       </SideDrawer>
     );
-    wrapper.find('.gooey-side-drawer__content').simulate('onmousedown');
-    wrapper.find('.gooey-side-drawer').simulate('onmouseup');
+    wrapper.find('.gooey-side-drawer__content').simulate('mousedown');
+    wrapper.find('.gooey-side-drawer').simulate('mouseup');
     expect(closeCallback).toHaveProperty('callCount', 0);
   });
 
@@ -76,8 +64,8 @@ describe('<SideDrawer />', () => {
         content
       </SideDrawer>
     );
-    wrapper.find('.gooey-side-drawer').simulate('onmousedown');
-    wrapper.find('.gooey-side-drawer__content').simulate('onmouseup');
+    wrapper.find('.gooey-side-drawer').simulate('mousedown');
+    wrapper.find('.gooey-side-drawer__content').simulate('mouseup');
     expect(closeCallback).toHaveProperty('callCount', 0);
   });
 
@@ -89,8 +77,8 @@ describe('<SideDrawer />', () => {
         content
       </SideDrawer>
     );
-    wrapper.find('.gooey-side-drawer').simulate('onmousedown');
-    wrapper.find('.gooey-side-drawer').simulate('onmouseup');
+    wrapper.find('.gooey-side-drawer').simulate('mousedown');
+    wrapper.find('.gooey-side-drawer').simulate('mouseup');
     expect(closeCallback).toHaveProperty('callCount', 0);
   });
 
@@ -102,8 +90,8 @@ describe('<SideDrawer />', () => {
         content
       </SideDrawer>
     );
-    wrapper.find('.gooey-side-drawer__content').simulate('onmousedown');
-    wrapper.find('.gooey-side-drawer__content').simulate('onmouseup');
+    wrapper.find('.gooey-side-drawer__content').simulate('mousedown');
+    wrapper.find('.gooey-side-drawer__content').simulate('mouseup');
     expect(closeCallback).toHaveProperty('callCount', 0);
   });
 });
