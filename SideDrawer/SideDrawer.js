@@ -37,6 +37,48 @@ export default class SideDrawer extends Component {
     onOverlayClick: null,
   };
 
+  // We keep the reference of the overlay so we can evaluate user click (onMouseUp and onMouseDown)
+  // In the case of user clicking inside the SideDrawer and releasing it outside (in overlay), this
+  // resulted in closing the SideDrawer and losing its state
+  // If the button is pressed on one element and the pointer is moved outside the element before
+  // the button is released, the event is fired on the most specific ancestor element that
+  // contained both elements.
+  // https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
+  overlayRef = null;
+  state = {
+    wasMouseDownOnOverlay: false,
+  };
+
+  /**
+   * Lifecycle method
+   * @param {Object} prevProps provided
+   */
+  componentDidUpdate(prevProps) {
+    if (prevProps.isOpen && !this.props.isOpen) {
+      this.setState({ wasMouseDownOnOverlay: false });
+    }
+  }
+
+  /**
+   * onMouseDownHandler
+   * @param {Event} e onmousedown
+   */
+  onMouseDownHandler = e => {
+    this.setState({ wasMouseDownOnOverlay: e.target === this.overlayRef });
+  };
+
+  // If both click and release happen on the overlay, close it and reset state
+  /**
+   * onMouseUpHandler
+   * @param {Event} e onmouseup
+   */
+  onMouseUpHandler = e => {
+    if (e.target === this.overlayRef && this.state.wasMouseDownOnOverlay) {
+      this.props.onOverlayClick();
+    }
+    this.setState({ wasMouseDownOnOverlay: false });
+  };
+
   getSideDrawerStyles = () => {
     const openStyles = {
       transform: 'scale(1, 1)',
@@ -66,7 +108,7 @@ export default class SideDrawer extends Component {
    * @return {JSX} The markup to be rendered
    */
   render() {
-    const { isOpen, onOverlayClick } = this.props;
+    const { isOpen } = this.props;
 
     const sideDrawerClassNames = classNames(
       'gooey-side-drawer',
@@ -98,10 +140,18 @@ export default class SideDrawer extends Component {
     const contentStyles = this.getContentStyles();
 
     return (
-      <div className={sideDrawerClassNames} onClick={onOverlayClick} style={sideDrawerStyles}>
+      <div
+        className={sideDrawerClassNames}
+        onMouseDown={this.onMouseDownHandler}
+        onMouseUp={this.onMouseUpHandler}
+        style={sideDrawerStyles}
+      >
         <div
+          ref={el => (this.overlayRef = el)}
           className="gooey-side-drawer__wrapper"
           onClick={e => e.stopPropagation()}
+          onMouseDown={e => e.stopPropagation()}
+          onMouseUp={e => e.stopPropagation()}
           style={wrapperStyles}
         >
           <div className="gooey-side-drawer__content" style={contentStyles}>

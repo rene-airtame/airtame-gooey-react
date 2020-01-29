@@ -54,4 +54,56 @@ describe('<SideDrawer />', () => {
     wrapper.find('.gooey-side-drawer__content').simulate('click');
     expect(closeCallback).toHaveProperty('callCount', 0);
   });
+
+  it('should not trigger the onOverlayClick fn when clicking content and release outside', () => {
+    const closeCallback = spy();
+
+    const wrapper = mount(
+      <SideDrawer isOpen={open} onOverlayClick={closeCallback}>
+        content
+      </SideDrawer>
+    );
+    wrapper.find('.gooey-side-drawer__content').simulate('onmousedown');
+    wrapper.find('.gooey-side-drawer').simulate('onmouseup');
+    expect(closeCallback).toHaveProperty('callCount', 0);
+  });
+
+  it('should not trigger the onOverlayClick fn when clicking outside and release inside', () => {
+    const closeCallback = spy();
+
+    const wrapper = mount(
+      <SideDrawer isOpen={open} onOverlayClick={closeCallback}>
+        content
+      </SideDrawer>
+    );
+    wrapper.find('.gooey-side-drawer').simulate('onmousedown');
+    wrapper.find('.gooey-side-drawer__content').simulate('onmouseup');
+    expect(closeCallback).toHaveProperty('callCount', 0);
+  });
+
+  it('should trigger the onOverlayClick fn when clicking outside ', () => {
+    const closeCallback = spy();
+
+    const wrapper = mount(
+      <SideDrawer isOpen={open} onOverlayClick={closeCallback}>
+        content
+      </SideDrawer>
+    );
+    wrapper.find('.gooey-side-drawer').simulate('onmousedown');
+    wrapper.find('.gooey-side-drawer').simulate('onmouseup');
+    expect(closeCallback).toHaveProperty('callCount', 0);
+  });
+
+  it('should not trigger the onOverlayClick fn when clicking inside ', () => {
+    const closeCallback = spy();
+
+    const wrapper = mount(
+      <SideDrawer isOpen={open} onOverlayClick={closeCallback}>
+        content
+      </SideDrawer>
+    );
+    wrapper.find('.gooey-side-drawer__content').simulate('onmousedown');
+    wrapper.find('.gooey-side-drawer__content').simulate('onmouseup');
+    expect(closeCallback).toHaveProperty('callCount', 0);
+  });
 });
