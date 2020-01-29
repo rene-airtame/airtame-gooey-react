@@ -45,9 +45,7 @@ export default class SideDrawer extends Component {
   // contained both elements.
   // https://developer.mozilla.org/en-US/docs/Web/API/Element/click_event
   overlayRef = null;
-  state = {
-    wasMouseDownOnOverlay: false,
-  };
+  wasMouseDownOnOverlay = false;
 
   /**
    * Lifecycle method
@@ -55,7 +53,7 @@ export default class SideDrawer extends Component {
    */
   componentDidUpdate(prevProps) {
     if (prevProps.isOpen && !this.props.isOpen) {
-      this.setState({ wasMouseDownOnOverlay: false });
+      this.wasMouseDownOnOverlay = false;
     }
   }
 
@@ -64,7 +62,7 @@ export default class SideDrawer extends Component {
    * @param {Event} e onmousedown
    */
   onMouseDownHandler = e => {
-    this.setState({ wasMouseDownOnOverlay: e.target === this.overlayRef });
+    this.wasMouseDownOnOverlay = e.target === this.overlayRef;
   };
 
   // If both click and release happen on the overlay, close it and reset state
@@ -73,10 +71,10 @@ export default class SideDrawer extends Component {
    * @param {Event} e onmouseup
    */
   onMouseUpHandler = e => {
-    if (e.target === this.overlayRef && this.state.wasMouseDownOnOverlay) {
+    if (e.target === this.overlayRef && this.wasMouseDownOnOverlay) {
       this.props.onOverlayClick();
     }
-    this.setState({ wasMouseDownOnOverlay: false });
+    this.wasMouseDownOnOverlay = false;
   };
 
   getSideDrawerStyles = () => {

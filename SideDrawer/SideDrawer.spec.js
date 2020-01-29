@@ -95,7 +95,7 @@ describe('<SideDrawer />', () => {
     expect(closeCallback).toHaveProperty('callCount', 0);
   });
 
-  it('should reset state when SideDrawer is closed', () => {
+  it('should reset instance when SideDrawer is closed', () => {
     const wrapper = shallow(
       <SideDrawer isOpen onOverlayClick={jest.fn}>
         content
@@ -103,6 +103,8 @@ describe('<SideDrawer />', () => {
     );
 
     wrapper.setProps({ isOpen: false });
-    expect(wrapper.state('wasMouseDownOnOverlay')).toBeFalsy();
+    const instance = wrapper.instance();
+
+    expect(instance.wasMouseDownOnOverlay).toBeFalsy();
   });
 });
