@@ -150,8 +150,6 @@ export default class SideDrawer extends Component {
         <div
           className="gooey-side-drawer__wrapper"
           onClick={e => e.stopPropagation()}
-          onMouseDown={e => e.stopPropagation()}
-          onMouseUp={e => e.stopPropagation()}
           style={wrapperStyles}
         >
           <div className="gooey-side-drawer__content" style={contentStyles}>
