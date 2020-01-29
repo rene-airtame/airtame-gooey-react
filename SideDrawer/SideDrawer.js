@@ -141,13 +141,13 @@ export default class SideDrawer extends Component {
 
     return (
       <div
+        ref={el => (this.overlayRef = el)}
         className={sideDrawerClassNames}
         onMouseDown={this.onMouseDownHandler}
         onMouseUp={this.onMouseUpHandler}
         style={sideDrawerStyles}
       >
         <div
-          ref={el => (this.overlayRef = el)}
           className="gooey-side-drawer__wrapper"
           onClick={e => e.stopPropagation()}
           onMouseDown={e => e.stopPropagation()}

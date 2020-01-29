@@ -69,7 +69,7 @@ describe('<SideDrawer />', () => {
     expect(closeCallback).toHaveProperty('callCount', 0);
   });
 
-  it('should trigger the onOverlayClick fn when clicking outside', () => {
+  it('should trigger onOverlayClick function when clicking outside', () => {
     const closeCallback = spy();
 
     const wrapper = mount(
@@ -86,7 +86,7 @@ describe('<SideDrawer />', () => {
     const closeCallback = spy();
 
     const wrapper = mount(
-      <SideDrawer isOpen={open} onOverlayClick={closeCallback}>
+      <SideDrawer isOpen onOverlayClick={closeCallback}>
         content
       </SideDrawer>
     );
