@@ -35,7 +35,7 @@ describe('<SideDrawer />', () => {
     const closeCallback = spy();
 
     const wrapper = mount(
-      <SideDrawer isOpen={open} onOverlayClick={closeCallback}>
+      <SideDrawer isOpen onOverlayClick={closeCallback}>
         content
       </SideDrawer>
     );
@@ -47,7 +47,7 @@ describe('<SideDrawer />', () => {
     const closeCallback = spy();
 
     const wrapper = mount(
-      <SideDrawer isOpen={open} onOverlayClick={closeCallback}>
+      <SideDrawer isOpen onOverlayClick={closeCallback}>
         content
       </SideDrawer>
     );
@@ -60,7 +60,7 @@ describe('<SideDrawer />', () => {
     const closeCallback = spy();
 
     const wrapper = mount(
-      <SideDrawer isOpen={open} onOverlayClick={closeCallback}>
+      <SideDrawer isOpen onOverlayClick={closeCallback}>
         content
       </SideDrawer>
     );
@@ -69,20 +69,20 @@ describe('<SideDrawer />', () => {
     expect(closeCallback).toHaveProperty('callCount', 0);
   });
 
-  it('should trigger the onOverlayClick fn when clicking outside ', () => {
+  it('should trigger the onOverlayClick fn when clicking outside', () => {
     const closeCallback = spy();
 
     const wrapper = mount(
-      <SideDrawer isOpen={open} onOverlayClick={closeCallback}>
+      <SideDrawer isOpen onOverlayClick={closeCallback}>
         content
       </SideDrawer>
     );
     wrapper.find('.gooey-side-drawer').simulate('mousedown');
     wrapper.find('.gooey-side-drawer').simulate('mouseup');
-    expect(closeCallback).toHaveProperty('callCount', 0);
+    expect(closeCallback).toHaveProperty('callCount', 1);
   });
 
-  it('should not trigger the onOverlayClick fn when clicking inside ', () => {
+  it('should not trigger the onOverlayClick fn when clicking inside', () => {
     const closeCallback = spy();
 
     const wrapper = mount(
@@ -93,5 +93,16 @@ describe('<SideDrawer />', () => {
     wrapper.find('.gooey-side-drawer__content').simulate('mousedown');
     wrapper.find('.gooey-side-drawer__content').simulate('mouseup');
     expect(closeCallback).toHaveProperty('callCount', 0);
+  });
+
+  it('should reset state when SideDrawer is closed', () => {
+    const wrapper = shallow(
+      <SideDrawer isOpen onOverlayClick={jest.fn}>
+        content
+      </SideDrawer>
+    );
+
+    wrapper.setProps({ isOpen: false });
+    expect(wrapper.state('wasMouseDownOnOverlay')).toBeFalsy();
   });
 });
