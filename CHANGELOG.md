@@ -1,6 +1,17 @@
 # Airtame Gooey React CHANGELOG
 
 
+## v0.4.6
+
+[Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.5...v0.4.6)
+
+- Fix SideDrawer onOverlay click
+```
+Behaviour is unexpected especially when selecting text in input fields (or any text) and by accident dragging the selection outside of the side drawer area (attached a screencast to the issue)
+
+This is critical because closing a modal (side drawer) will loose all the information added by the user and user will have to re-enter it. 
+```
+
 ## v0.4.5
 
 [Diff](https://github.com/airtame/airtame-gooey-react/compare/v0.4.4...v0.4.5)
