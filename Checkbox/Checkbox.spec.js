@@ -103,6 +103,21 @@ describe('<Checkbox />', () => {
     expect(focusCallback).toHaveProperty('callCount', 1);
   });
 
+  it('should not allow empty label if no children', () => {
+    expect(() => {
+      render(<Checkbox id="test-checkbox" value="foo" />);
+    }).toThrow('Neither children or label provided to Checkbox');
+  });
+
+  it('should allow passing children instead of label', () => {
+    const wrapper = render(
+      <Checkbox id="test-checkbox" value="foo">
+        <label htmlFor="test-checkbox">bar</label>
+      </Checkbox>
+    );
+    expect(wrapper.find('label').length).toEqual(1);
+  });
+
   it('should set the proper checked state if the prop is updated', () => {
     const wrapper = shallow(
       <Checkbox id="test-checkbox" label="test-checkbox" value="foo" isChecked />

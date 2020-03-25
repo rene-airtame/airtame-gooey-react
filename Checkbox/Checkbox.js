@@ -24,7 +24,7 @@ export default class Checkbox extends Component {
      * The checkbox's content title
      * @type {string}
      */
-    label: PropTypes.string.isRequired,
+    label: PropTypes.string,
     /**
      * The name for the input field group
      * @type {string}
@@ -125,6 +125,7 @@ export default class Checkbox extends Component {
     delete props.isDisabled;
     delete props.inputRef;
     delete props.onChange;
+    delete props.children;
 
     return props;
   };
@@ -134,7 +135,7 @@ export default class Checkbox extends Component {
    * @return {JSX}  The markup to be rendered
    */
   render() {
-    const { id, label, isDisabled, inputRef } = this.props;
+    const { id, label, isDisabled, inputRef, children } = this.props;
     const checkboxClassNames = classNames(
       'gooey-checkbox',
       {
@@ -145,6 +146,21 @@ export default class Checkbox extends Component {
     );
 
     const props = this.getProps();
+
+    // Either a label has to be set or children provided
+    if (!label && !children) {
+      throw new Error('Neither children or label provided to Checkbox');
+    }
+
+    let content = children;
+
+    if (label) {
+      content = (
+        <label htmlFor={id} className="gooey-checkbox__label">
+          {label}
+        </label>
+      );
+    }
 
     return (
       <div className={checkboxClassNames}>
@@ -159,9 +175,7 @@ export default class Checkbox extends Component {
           }}
           {...props}
         />
-        <label htmlFor={id} className="gooey-checkbox__label">
-          {label}
-        </label>
+        {content}
       </div>
     );
   }
